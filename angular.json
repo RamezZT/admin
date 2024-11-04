@@ -16,18 +16,23 @@
             "outputPath": "dist/admin",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
+              "src/assets/css/styles.css",
+              "src/assets/css/styles.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/app.min.js",
+              "src/assets/js/dashboard.js",
+              "src/assets/js/sidebarmenu.js",
+              "src/assets/libs/jquery/dist/jquery.min.js",
+              "src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "src/assets/libs/apexcharts/dist/apexcharts.min.js",
+              "src/assets/libs/simplebar/dist/simplebar.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -77,19 +82,23 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
+              "src/assets/css/styles.css",
+              "src/assets/css/styles.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/app.min.js",
+              "src/assets/js/dashboard.js",
+              "src/assets/js/sidebarmenu.js",
+              "src/assets/libs/jquery/dist/jquery.min.js",
+              "src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "src/assets/libs/apexcharts/dist/apexcharts.min.js",
+              "src/assets/libs/simplebar/dist/simplebar.js"
+            ]
           }
         }
       }

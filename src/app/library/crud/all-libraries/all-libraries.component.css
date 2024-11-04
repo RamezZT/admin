@@ -1,0 +1,6 @@
+.library-image {
+    width:50px; /* Set the width to your desired size */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 4px; /* Optional: add rounded corners */
+  }
+  

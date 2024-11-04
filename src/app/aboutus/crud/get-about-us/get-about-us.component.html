@@ -1,0 +1,32 @@
+<div class="aboutus-container">
+  <!-- Show loading spinner -->
+  <div *ngIf="isLoading" class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Show error message -->
+  <div *ngIf="isError" class="alert alert-danger">
+    {{ errorMessage() }}
+  </div>
+
+  <!-- Display form if data is loaded -->
+  <div *ngIf="!isLoading && !isError" class="card">
+    <div class="card-body">
+      <div class="mb-3">
+        <label for="aboutUsTitle" class="form-label">Title</label>
+        <h1>{{ aboutUsData?.title }}</h1>
+        <img
+          [src]="IMGPATH + aboutUsData?.image"
+          alt="Contact Image"
+          class="img-fluid"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="aboutUsParagraph" class="form-label">Paragraph</label>
+        <p>{{ aboutUsData?.paragraph }}</p>
+      </div>
+    </div>
+  </div>
+</div>
