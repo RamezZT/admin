@@ -1,0 +1,29 @@
+<div class="shop-container">
+    <div class="shop-box-items" *ngFor="let favBook of userServ.userFavoriteBook">
+        <div class="book-thumb center">
+            <a><img src="../../assets/Images/{{favBook.book.image}}" width="158px" height="219px" alt="img"></a>
+            <ul class="shop-icon d-grid justify-content-center align-items-center">
+                <li>
+                    <a (click)="removeFromFavorites(favBook.favoritebookid)">
+                        <i class="far fa-heart"></i>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/bookDetails/{{favBook.book.bookid}}">
+                        <i class="far fa-eye"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="shop-content">
+            <h3>
+                <a routerLink="/bookDetails/{{favBook.book.bookid}}">{{favBook.book.bookname}}</a>
+            </h3>
+            <div class="shop-button">
+                <a routerLink="/bookDetails/{{favBook.book.bookid}}" class="theme-btn">
+                    <i class="fa-solid fa-basket-shopping"></i> More Details
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

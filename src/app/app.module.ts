@@ -3,12 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './admin/home/home.component';
 import {
   QueryClient,
   provideAngularQuery,
 } from '@tanstack/angular-query-experimental';
-import { BooksComponent } from './admin/books/books.component';
+import { BooksComponent as AdminBooksComponent } from './admin/books/books.component';
 import { HeaderComponent } from './admin/header/header.component';
 import { SidebarComponent } from './admin/sidebar/sidebar.component';
 import { AboutusComponent } from './admin/aboutus/aboutus.component';
@@ -59,10 +58,43 @@ import { AddOfferComponent } from './admin/offer/crud/add-offer/add-offer.compon
 import { EditOfferComponent } from './admin/offer/crud/edit-offer/edit-offer.component';
 import { ReportComponent } from './admin/report/report.component';
 import { LayoutComponent } from './admin/layout/layout.component';
+
+import { SharedModule } from './shared/shared.module';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+import { LibrariesComponent } from './libraries/libraries.component';
+import { SearchByNamePipe } from './pips/search-by-name.pipe';
+import { BooksComponent } from './books/books.component';
+import { BookCardComponent } from './book-card/book-card.component';
+import { BookDetailsComponent } from './book-details/book-details.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { CreateTestimonialComponent } from './create-testimonial/create-testimonial.component';
+import { FavoriteBooksComponent } from './favorite-books/favorite-books.component';
+import { BorrowBookComponent } from './borrow-book/borrow-book.component';
+import { AuthorProfileComponent } from './author-profile/author-profile.component';
+import { SearchByBookNamePipe } from './pips/search-by-book-name.pipe';
+import { BorrowingHistoryComponent } from './borrowing-history/borrowing-history.component';
+import { HomeComponent } from './home/home.component';
+import { AdminHomeComponent } from './admin/adminHome/admin-home.component';
+import { HomeLayoutComponent } from './home-layout/home-layout.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    AdminHomeComponent,
+    AboutComponent,
+    ContactComponent,
+    LibrariesComponent,
+    BookCardComponent,
+    BookDetailsComponent,
+    UserProfileComponent,
+    CreateTestimonialComponent,
+    FavoriteBooksComponent,
+    BorrowBookComponent,
+    AuthorProfileComponent,
+    BorrowingHistoryComponent,
+
+    AdminBooksComponent,
     BooksComponent,
     LayoutComponent,
     HeaderComponent,
@@ -107,6 +139,7 @@ import { LayoutComponent } from './admin/layout/layout.component';
     AddOfferComponent,
     EditOfferComponent,
     ReportComponent,
+    HomeLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -118,6 +151,7 @@ import { LayoutComponent } from './admin/layout/layout.component';
     RouterModule,
     AngularQueryDevtools,
     ReactiveFormsModule,
+    SharedModule,
   ],
   exports: [CommonModule, FormsModule], // Export CommonModule for global use
   providers: [

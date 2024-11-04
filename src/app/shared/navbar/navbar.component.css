@@ -1,0 +1,30 @@
+.header-1 .header-main:before {
+   
+    height: 144px;
+   
+}
+.header-1 .header-main:after{
+    content: none;
+}
+.sticky-header .header-main:before{
+height: 119px;    
+}
+
+
+.header-1 .header-right .menu-cart .cart-icon::before{
+    content: none;
+    
+}
+
+.offcanvas__wrapper .offcanvas__content .offcanvas__contact .header-button .theme-btn {
+    display: block;
+    margin-top: 10px;
+}
+
+.profile_img{
+    
+    width: 180px;
+    height: 180px;
+    border-radius: 5%;
+
+}

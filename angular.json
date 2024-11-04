@@ -22,7 +22,19 @@
             "styles": [
               "src/assets/css/styles.css",
               "src/assets/css/styles.min.css",
-              "src/styles.css"
+              "src/styles.css",
+
+              "src/styles.css",
+              "src/assets/Home/css/bootstrap.min.css",
+              "src/assets/Home/css/all.min.css",
+              "src/assets/Home/css/animate.css",
+              "src/assets/Home/css/magnific-popup.css",
+              "src/assets/Home/css/meanmenu.css",
+              "src/assets/Home/css/swiper-bundle.min.css",
+              "src/assets/Home/css/nice-select.css",
+              "src/assets/Home/css/icomoon.css",
+              "src/assets/Home/css/main.css",
+              "node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": [
               "src/assets/js/app.min.js",
@@ -31,7 +43,21 @@
               "src/assets/libs/jquery/dist/jquery.min.js",
               "src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js",
               "src/assets/libs/apexcharts/dist/apexcharts.min.js",
-              "src/assets/libs/simplebar/dist/simplebar.js"
+              "src/assets/libs/simplebar/dist/simplebar.js",
+
+              "src/assets/Home/js/jquery-3.7.1.min.js",
+              "src/assets/Home/js/viewport.jquery.js",
+              "src/assets/Home/js/bootstrap.bundle.min.js",
+              "src/assets/Home/js/jquery.nice-select.min.js",
+              "src/assets/Home/js/jquery.waypoints.js",
+              "src/assets/Home/js/jquery.counterup.min.js",
+              "src/assets/Home/js/swiper-bundle.min.js",
+              "src/assets/Home/js/jquery.meanmenu.min.js",
+              "src/assets/Home/js/jquery.magnific-popup.min.js",
+              "src/assets/Home/js/wow.min.js",
+              "src/assets/Home/js/gsap.min.js",
+              "src/assets/Home/js/main.js",
+              "node_modules/leaflet/dist/leaflet.js"
             ]
           },
           "configurations": {
@@ -88,7 +114,19 @@
             "styles": [
               "src/assets/css/styles.css",
               "src/assets/css/styles.min.css",
-              "src/styles.css"
+              "src/styles.css",
+
+              "src/styles.css",
+              "src/assets/Home/css/bootstrap.min.css",
+              "src/assets/Home/css/all.min.css",
+              "src/assets/Home/css/animate.css",
+              "src/assets/Home/css/magnific-popup.css",
+              "src/assets/Home/css/meanmenu.css",
+              "src/assets/Home/css/swiper-bundle.min.css",
+              "src/assets/Home/css/nice-select.css",
+              "src/assets/Home/css/icomoon.css",
+              "src/assets/Home/css/main.css",
+              "node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": [
               "src/assets/js/app.min.js",
@@ -97,7 +135,21 @@
               "src/assets/libs/jquery/dist/jquery.min.js",
               "src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js",
               "src/assets/libs/apexcharts/dist/apexcharts.min.js",
-              "src/assets/libs/simplebar/dist/simplebar.js"
+              "src/assets/libs/simplebar/dist/simplebar.js",
+
+              "src/assets/Home/js/jquery-3.7.1.min.js",
+              "src/assets/Home/js/viewport.jquery.js",
+              "src/assets/Home/js/bootstrap.bundle.min.js",
+              "src/assets/Home/js/jquery.nice-select.min.js",
+              "src/assets/Home/js/jquery.waypoints.js",
+              "src/assets/Home/js/jquery.counterup.min.js",
+              "src/assets/Home/js/swiper-bundle.min.js",
+              "src/assets/Home/js/jquery.meanmenu.min.js",
+              "src/assets/Home/js/jquery.magnific-popup.min.js",
+              "src/assets/Home/js/wow.min.js",
+              "src/assets/Home/js/gsap.min.js",
+              "src/assets/Home/js/main.js",
+              "node_modules/leaflet/dist/leaflet.js"
             ]
           }
         }

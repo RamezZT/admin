@@ -1,0 +1,13 @@
+.section-title-area{
+    margin-top: 60px;
+}
+
+.limited-lines {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 4; 
+    line-height: 1.6;
+    max-height: 6em;
+}
+

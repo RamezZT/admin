@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './admin/home/home.component';
+// import { HomeComponent } from './admin/adminHome/admin-home.component';
 import { BooksComponent } from './admin/books/books.component';
 import { AboutusComponent } from './admin/aboutus/aboutus.component';
 import { EditAboutUsComponent } from './admin/aboutus/crud/edit-about-us/edit-about-us.component';
@@ -42,13 +42,27 @@ import { EditOfferComponent } from './admin/offer/crud/edit-offer/edit-offer.com
 import { ReportComponent } from './admin/report/report.component';
 import { LayoutComponent } from './admin/layout/layout.component';
 import { UserComponent } from './admin/user/user.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+import { AuthModule } from './auth/auth.module';
+import { LibrariesComponent } from './libraries/libraries.component';
+import { BookDetailsComponent } from './book-details/book-details.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { CreateTestimonialComponent } from './create-testimonial/create-testimonial.component';
+import { FavoriteBooksComponent } from './favorite-books/favorite-books.component';
+import { BorrowBookComponent } from './borrow-book/borrow-book.component';
+import { AuthorProfileComponent } from './author-profile/author-profile.component';
+import { BorrowingHistoryComponent } from './borrowing-history/borrowing-history.component';
+import { HomeComponent } from './home/home.component';
+import { AdminHomeComponent } from './admin/adminHome/admin-home.component';
+import { HomeLayoutComponent } from './home-layout/home-layout.component';
 
 const routes: Routes = [
   {
     path: 'admin',
     component: LayoutComponent,
     children: [
-      { path: '', component: HomeComponent },
+      { path: '', component: AdminHomeComponent },
       {
         path: 'aboutus',
         component: AboutusComponent,
@@ -182,6 +196,27 @@ const routes: Routes = [
         component: BorrowedBooksComponent,
         children: [{ path: '', component: AllBorrowedBooksComponent }],
       },
+    ],
+  },
+  {
+    path: '',
+    component: HomeLayoutComponent,
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'about', component: AboutComponent },
+      { path: 'contact', component: ContactComponent },
+      { path: 'security', loadChildren: () => AuthModule },
+      { path: 'libraries', component: LibrariesComponent },
+      // {path:'books',component:BooksComponent},
+      { path: 'libraries/:name/books/:id', component: BooksComponent },
+      // {path:'bookscard',component:BookCardComponent},
+      { path: 'bookDetails/:id', component: BookDetailsComponent },
+      { path: 'userProfile', component: UserProfileComponent },
+      { path: 'createTestimonial', component: CreateTestimonialComponent },
+      { path: 'FavoriteBooks', component: FavoriteBooksComponent },
+      { path: 'BorrowBook/:id', component: BorrowBookComponent },
+      { path: 'AuthorProfile/:id', component: AuthorProfileComponent },
+      { path: 'BrrowingHistory', component: BorrowingHistoryComponent },
     ],
   },
 ];

@@ -1,0 +1,132 @@
+<br>
+<br>
+<br>
+
+<div class="modal-dialog">
+    <div class="modal-content shadow">
+        <div class="modal-body">
+            <div class="identityBox">
+                <div class="form-wrapper">
+                    <h1 id="registrationModalLabel">Create account!</h1>
+                    <form [formGroup]="registerForm">
+                        <div class="form-group">
+                            <input class="inputField" type="text" name="firstname" placeholder="First Name" required formControlName="firstname">
+                           
+                            <input class="inputField" type="text" name="lastname" placeholder="Last Name" required formControlName="lastname">
+                           
+                        </div>
+                        <div class="form-group">
+                            <span class="hasError"
+                            *ngIf="registerForm.controls.firstname.invalid && (registerForm.controls.firstname.dirty || registerForm.controls.firstname.touched)">
+                            <span class="mar76"  *ngIf="registerForm.controls.firstname.errors?.['required']">
+                               First Name is required.
+                            </span>
+                            </span>
+                            <span class="hasError"
+                            *ngIf="registerForm.controls.lastname.invalid && (registerForm.controls.lastname.dirty || registerForm.controls.lastname.touched)">
+                            <span *ngIf="registerForm.controls.lastname.errors?.['required']">
+                               Last Name is required.
+                            </span>
+                        </span>
+                        </div>
+                       
+                   
+                        <div class="form-group">
+                            <input class="inputField" type="text" name="username" placeholder="User Name" required formControlName="username">
+                           
+                        </div>
+                        <span class="hasError"
+                        *ngIf="registerForm.controls.username.invalid && (registerForm.controls.username.dirty || registerForm.controls.username.touched)">
+                        <span *ngIf="registerForm.controls.username.errors?.['required']">
+                           User Name is required.
+                        </span>
+                        </span>
+
+                        <div class="form-group">
+                            <input class="inputField" type="email" name="email" placeholder="Email Address" required formControlName="email">
+                        </div>
+                        <span class="hasError"
+                        *ngIf="registerForm.controls.email.invalid && (registerForm.controls.email.dirty || registerForm.controls.email.touched)">
+                        <span *ngIf="registerForm.controls.email.errors?.['required']">
+                           Email is required.
+                        </span>
+                        <span *ngIf="registerForm.controls.email.errors?.['email']">
+                            Email is invalid.
+                         </span>
+                        </span>
+                        <div class="form-group">
+                            <input class="inputField" type="password" name="password" placeholder="Enter Password" formControlName="password" required>
+                        </div>
+                        <span class="hasError"
+                        *ngIf="registerForm.controls.password.invalid && (registerForm.controls.password.dirty || registerForm.controls.password.touched)">
+                        <span *ngIf="registerForm.controls.password.errors?.['required']">
+                           Password is required.
+                        </span>
+                        </span>
+                        <div class="form-group">
+                            <input class="inputField" type="tel" name="phone" placeholder="Phone Number" required formControlName="phonenumber">
+                            <input class="inputField" type="text" name="address" placeholder="Address" required formControlName="address">
+                        </div>
+                        <div class="form-group">
+                            <span class="hasError"
+                            *ngIf="registerForm.controls.phonenumber.invalid && (registerForm.controls.phonenumber.dirty || registerForm.controls.phonenumber.touched)">
+                            <span class="mar76"  *ngIf="registerForm.controls.phonenumber.errors?.['required']">
+                               phone number is required.
+                            </span>
+                            </span>
+                            <span class="hasError"
+                            *ngIf="registerForm.controls.address.invalid && (registerForm.controls.address.dirty || registerForm.controls.address.touched)">
+                            <span *ngIf="registerForm.controls.address.errors?.['required']">
+                               Address is required.
+                            </span>
+                        </span>
+                        </div>
+                    </form>
+                    <div class="input-check remember-me">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" class="form-check-input" name="save-for-next" id="rememberMe">
+                            <label for="rememberMe">Remember me</label>
+                        </div>
+                        <div class="text"><a routerLink="/security/login">You Have an Account?</a></div>
+                    </div>
+                    <div class="loginBtn">
+                        <button class="theme-btn rounded-0" [disabled]="!registerForm.valid"  (click)="Submit()">
+                        Register
+                    </button>
+                    </div>
+                    <!-- <div class="orting-badge">Or</div>
+                    <div>
+                        <a class="another-option" href="https://www.google.com/">
+                            <img src="../../../assets/Home/img/google.png" alt="google">
+                            Continue With Google
+                        </a>
+                    </div>
+                    <div>
+                        <a class="another-option another-option-two" href="https://www.facebook.com/">
+                            <img src="../../../assets/Home/img/facebook.png" alt="facebook">
+                            Continue With Facebook
+                        </a>
+                    </div>
+                    <div class="form-check-3 d-flex align-items-center from-customradio-2 mt-3">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" required>
+                        <label class="form-check-label">I Accept Your Terms & Conditions</label>
+                    </div> -->
+                </div>
+
+                <div class="banner">
+                    <button type="button" class="rounded-0 login-btn" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">Register</button>
+                    <!-- <button type="button" class="theme-btn rounded-0 register-btn" data-bs-toggle="modal" data-bs-target="#registrationModal">Create Account</button> -->
+                    <div class="signUpBg">
+                        <img src="../../../assets/Home/img/registrationbg.jpg" alt="signUpBg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>
+<br>
+<br>

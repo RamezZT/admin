@@ -1,0 +1,33 @@
+.star-rating {
+    display: flex;
+    align-items: center; 
+    cursor: pointer;
+  }
+
+  .shop-details-wrapper .single-tab .review-wrap-area{
+  padding-top: 12px;
+  }
+  
+  .star-rating span {
+    font-size: 2rem; 
+    color: #ccc; 
+    margin-right: 0.2rem; 
+    transition: color 0.2s ease, transform 0.2s ease; 
+  }
+  
+  .rating-number {
+    font-size: 1.5rem; 
+    color: #666; 
+    margin-left: 0.5rem; 
+  }
+  
+  .star-rating span.active {
+    color: #ff6500;
+    transform: scale(1.2); 
+  }
+  
+  .star-rating span:hover {
+    color: #ff6500; 
+    transform: scale(1.2); 
+  }
+  

@@ -1,0 +1,71 @@
+<br>
+<br>
+<h1>History Of Borrowing</h1>
+
+<div class="card-deck">
+    <div class="card" *ngFor="let obj of borrowServ.UserBorrowHistory">
+      <img src="https://static.wixstatic.com/media/888710_df2aab8b65fc4fb4af9b4bed8ed0b8e2~mv2.png/v1/fill/w_706,h_1168,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/1688136449.png" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{obj.book.bookname}}</h5>
+        <p class="card-text">borrowing date : {{obj.borrowingdate | date: 'shortDate'}}</p>
+        <p class="card-text">due date: {{obj.duedate | date: 'shortDate'}}</p>
+        <p class="card-text">status: {{obj.status}}</p>
+        <p class="card-text">
+            fees: 
+            <span *ngIf="obj.status === 'Returned'">0</span>
+            <span *ngIf="obj.status !== 'Returned'">{{ calculateFees(obj.duedate, obj.book.priceperday) | currency }}</span>
+          </p>
+       <button 
+    class="btn btn-primary" 
+    [disabled]="calculateFees(obj.duedate, obj.book.priceperday) === 0 || obj.status === 'Returned'" 
+    (click)="openPaymentDialog(obj)">
+    Pay Fees
+</button>
+
+        <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+      </div>
+    </div>
+    <!-- <div class="card">
+      <img src="https://dkemhji6i1k0x.cloudfront.net/000_clients/489816/page/489816HeD639gY.png" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://static.wixstatic.com/media/888710_f12afc6bf02640c7bc5a1ed9d37eb6ef~mv2.png/v1/fill/w_726,h_1172,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/1698854169.png" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div> -->
+</div>
+<div class="dialog-background" *ngIf="isDialogOpen">
+    <div class="dialog">
+      <h2>Payment Information</h2>
+      <form (ngSubmit)="onSubmit()">
+        <div class="input-container">
+          <label for="cardNumber">Card Number</label>
+          <input type="text" id="cardNumber" [(ngModel)]="cardNumber" name="cardNumber" placeholder="Enter your card number" required>
+        </div>
+  
+        <div class="input-container">
+          <label for="expirationDate">Expiration Date</label>
+          <input type="text" id="expirationDate" [(ngModel)]="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+        </div>
+  
+        <div class="input-container">
+          <label for="cvv">CVV</label>
+          <input type="text" id="cvv" [(ngModel)]="cvv" name="cvv" placeholder="Enter CVV" required>
+        </div>
+  
+        <div class="button-container">
+          <button type="submit" class="btn btn-primary">Pay</button>
+          <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

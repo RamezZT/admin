@@ -1,0 +1,46 @@
+.form-group {
+    display: flex; 
+    margin-bottom: 15px; 
+}
+
+.inputField {
+    flex: 1; 
+    margin-right: 20px; 
+}
+
+.inputField:last-child {
+    margin-right: 0;
+}
+.modal-dialog .modal-content .modal-body .identityBox .form-wrapper .inputField{
+
+    margin: 5px 16px;
+}
+
+
+input {
+    color: #036280;
+}
+
+input::placeholder {
+    color: #999; 
+}
+
+.hasError{
+    color: rgb(255, 66, 66);
+    margin-left: 20px;
+}
+
+
+.modal-dialog .modal-content .modal-body .identityBox .form-wrapper h1{
+    margin-bottom: 10px;
+}
+
+.mar76{
+    margin-right: 76px;
+}
+
+button {
+    width: 100%; 
+    padding: 20px; 
+   
+}
