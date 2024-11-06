@@ -1,4 +1,5 @@
 export enum QUERYKEYS {
+  paidfees = 'paidfees',
   aboutus = 'abouts',
   contactus = 'contactus',
   allBooks = 'allBooks',

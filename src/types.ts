@@ -159,12 +159,12 @@ export type Login = {
 
 export type PaidFee = {
   feeid: number; // Equivalent to decimal Feeid
-  returningdate?: Date; // Equivalent to DateTime? Returningdate
-  feeamount?: number; // Equivalent to decimal? Feeamount
-  userid?: number; // Equivalent to decimal? Userid
-  borrowedbookid?: number; // Equivalent to decimal? Borrowedbookid
-  useremail?: string; // Equivalent to string? UserEmail
-  createdat?: Date; // Equivalent to DateTime? Createdat
+  returningdate: Date; // Equivalent to DateTime? Returningdate
+  feeamount: number; // Equivalent to decimal? Feeamount
+  userid: number; // Equivalent to decimal? Userid
+  borrowedbookid: number; // Equivalent to decimal? Borrowedbookid
+  useremail: string; // Equivalent to string? UserEmail
+  createdat: Date; // Equivalent to DateTime? Createdat
 
   borrowedbook?: BorrowedBook; // Equivalent to virtual Borrowedbook? Borrowedbook
   user?: User; // Equivalent to virtual User? User
