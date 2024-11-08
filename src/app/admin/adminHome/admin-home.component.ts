@@ -1,8 +1,17 @@
 import { Component, inject, OnInit, AfterViewInit } from '@angular/core';
 import { AdminhomeService } from './adminhome.service';
-import { Chart } from 'chart.js';
+import {
+  Chart,
+  CategoryScale,
+  LinearScale,
+  BarController,
+  BarElement,
+} from 'chart.js'; // Import scales and controllers
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import { QUERYKEYS } from 'src/app/queries';
+
+// Register required Chart.js components
+Chart.register(CategoryScale, LinearScale, BarController, BarElement);
 
 @Component({
   selector: 'app-home',
@@ -17,28 +26,45 @@ export class AdminHomeComponent implements OnInit, AfterViewInit {
     queryKey: [QUERYKEYS.paidfees],
     queryFn: () => this.adminHomeService.getTotalFees(),
   }));
+  totalIncomeQuery = injectQuery(() => ({
+    queryKey: [QUERYKEYS.totalincome],
+    queryFn: () => this.adminHomeService.getTotalIncome(),
+  }));
+  librariesSalesQuery = injectQuery(() => ({
+    queryKey: [QUERYKEYS.librariesSales],
+    queryFn: () => this.adminHomeService.getLibrariesSales(),
+  }));
 
   // Store the selected month for updating the chart
   selectedMonth: string = '2023-03';
 
-  // Get the paid fees data
   get paidFees() {
     return this.paidFeesQuery.data();
+  }
+
+  // Get the paid fees data
+  get last5Fees() {
+    const fees = this.paidFeesQuery.data()?.slice(0, 5);
+    return fees;
+  }
+
+  get totalIncome() {
+    return this.totalIncomeQuery.data();
+  }
+
+  get librariesSales() {
+    return this.librariesSalesQuery.data();
   }
 
   // Calculate monthly income from the paid fees
   get monthlyIncome() {
     if (!this.paidFees) return {};
     const data = this.adminHomeService.calculateMonthlyIncome(this.paidFees);
-    console.log(data); // Example: { "2023-03": 500, "2023-04": 600, ... }
     return data;
   }
 
-  get totalIncome() {
-    const chartContainer = document.getElementById('chart')!;
-    console.log(chartContainer);
+  get totalFees() {
     const paidFees = this.paidFeesQuery.data();
-    this.monthlyIncome;
     const totalIncome = paidFees?.reduce((acc, fee) => acc + fee.feeamount!, 0);
     return totalIncome;
   }
@@ -46,10 +72,7 @@ export class AdminHomeComponent implements OnInit, AfterViewInit {
   // The chart reference
   private chart: any;
 
-  ngOnInit(): void {
-    // Initialize the chart when the component is first loaded
-    this.updateChart();
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     // Initial chart rendering
@@ -59,13 +82,9 @@ export class AdminHomeComponent implements OnInit, AfterViewInit {
   // Function to update the chart based on the selected month
   updateChart() {
     const monthlyIncome = this.monthlyIncome;
-
-    // Get the income for the selected month (e.g., '2023-03')
     const selectedIncome = monthlyIncome[this.selectedMonth] || 0;
 
-    // Get the chart container (canvas element) and cast it to HTMLCanvasElement
     const ctx = document.getElementById('myChart') as HTMLCanvasElement;
-    ctx.getContext('2d');
 
     if (ctx) {
       // Destroy the existing chart if it exists
@@ -75,14 +94,14 @@ export class AdminHomeComponent implements OnInit, AfterViewInit {
 
       // Create a new Chart.js chart
       this.chart = new Chart(ctx, {
-        type: 'bar', // You can change the chart type (e.g., 'line', 'bar', etc.)
+        type: 'bar',
         data: {
-          labels: [this.selectedMonth], // x-axis label (for example: '2023-03')
+          labels: [this.selectedMonth],
           datasets: [
             {
               label: 'Income',
-              data: [selectedIncome], // y-axis value (the income for the selected month)
-              backgroundColor: 'rgba(75, 192, 192, 0.2)', // Bar color
+              data: [selectedIncome],
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
               borderColor: 'rgba(75, 192, 192, 1)',
               borderWidth: 1,
             },
@@ -92,9 +111,10 @@ export class AdminHomeComponent implements OnInit, AfterViewInit {
           responsive: true,
           scales: {
             y: {
+              type: 'linear', // Explicitly set the scale type
               beginAtZero: true,
               ticks: {
-                stepSize: 100, // Adjust this step size according to your data range
+                stepSize: 100,
               },
             },
           },

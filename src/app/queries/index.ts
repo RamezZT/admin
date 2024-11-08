@@ -18,4 +18,6 @@ export enum QUERYKEYS {
   alloffers = 'alloffers',
   allusers = 'allusers',
   report = 'report',
+  totalincome = 'totalincome',
+  librariesSales = 'librariesSales',
 }

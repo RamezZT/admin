@@ -47,7 +47,7 @@ export class BooksService {
   async getAllBooks(): Promise<Book[]> {
     try {
       const data = await lastValueFrom(
-        this.http.get<Book[]>(`${APIURL}Book/allInfro`)
+        this.http.get<Book[]>(`${APIURL}Book/allInfo`)
       );
       console.log(data);
       return data;

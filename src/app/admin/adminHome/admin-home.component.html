@@ -14,7 +14,9 @@
               id="month-selector"
               (change)="updateChart()"
             >
-              <option value="2023-03">March 2023</option>
+              <option value="2024-03">March 2024</option>
+              <option value="2024-04">March 2024</option>
+              <option value="2024-05">March 2024</option>
               <option value="2023-04">April 2023</option>
               <option value="2023-05">May 2023</option>
               <option value="2023-06">June 2023</option>
@@ -27,6 +29,7 @@
       </div>
     </div>
   </div>
+  {{ librariesSales.js }}
   <div class="col-lg-4">
     <div class="row">
       <div class="col-lg-12">
@@ -37,29 +40,6 @@
             <div class="row align-items-center">
               <div class="col-8">
                 <h4 class="fw-semibold mb-3">${{ totalIncome }}</h4>
-                <div class="d-flex align-items-center mb-3">
-                  <span
-                    class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center"
-                  >
-                    <i class="ti ti-arrow-up-left text-success"></i>
-                  </span>
-                  <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                  <p class="fs-3 mb-0">last year</p>
-                </div>
-                <div class="d-flex align-items-center">
-                  <div class="me-4">
-                    <span
-                      class="round-8 bg-primary rounded-circle me-2 d-inline-block"
-                    ></span>
-                    <span class="fs-2">2023</span>
-                  </div>
-                  <div>
-                    <span
-                      class="round-8 bg-light-primary rounded-circle me-2 d-inline-block"
-                    ></span>
-                    <span class="fs-2">2023</span>
-                  </div>
-                </div>
               </div>
               <div class="col-4">
                 <div class="d-flex justify-content-center">
@@ -76,16 +56,16 @@
           <div class="card-body">
             <div class="row alig n-items-start">
               <div class="col-8">
-                <h5 class="card-title mb-9 fw-semibold">Monthly Earnings</h5>
-                <h4 class="fw-semibold mb-3">$6,820</h4>
+                <h5 class="card-title mb-9 fw-semibold">Total Fees</h5>
+                <h4 class="fw-semibold mb-3">${{ totalFees }}</h4>
                 <div class="d-flex align-items-center pb-1">
                   <span
                     class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center"
                   >
                     <i class="ti ti-arrow-down-right text-danger"></i>
                   </span>
-                  <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                  <p class="fs-3 mb-0">last year</p>
+                  <!-- <p class="text-dark me-1 fs-3 mb-0">+9%</p> -->
+                  <!-- <p class="fs-3 mb-0">last year</p> -->
                 </div>
               </div>
               <div class="col-4">
@@ -110,12 +90,15 @@
     <div class="card w-100">
       <div class="card-body p-4">
         <div class="mb-4">
-          <h5 class="card-title fw-semibold">Recent Paid Fees</h5>
+          <h5 class="card-title fw-semibold">Last 5 Paid Fees</h5>
         </div>
         <ul class="timeline-widget mb-0 position-relative mb-n5">
-          <li class="timeline-item d-flex position-relative overflow-hidden">
+          <li
+            *ngFor="let fee of last5Fees"
+            class="timeline-item d-flex position-relative overflow-hidden"
+          >
             <div class="timeline-time text-dark flex-shrink-0 text-end">
-              09:30
+              {{ fee.returningdate }}
             </div>
             <div
               class="timeline-badge-wrap d-flex flex-column align-items-center"
@@ -126,10 +109,10 @@
               <span class="timeline-badge-border d-block flex-shrink-0"></span>
             </div>
             <div class="timeline-desc fs-3 text-dark mt-n1">
-              Payment received from John Doe of $385.90
+              Payment received from of ${{ fee.feeamount }}
             </div>
           </li>
-          <li class="timeline-item d-flex position-relative overflow-hidden">
+          <!-- <li class="timeline-item d-flex position-relative overflow-hidden">
             <div class="timeline-time text-dark flex-shrink-0 text-end">
               10:00 am
             </div>
@@ -215,7 +198,7 @@
               ></span>
             </div>
             <div class="timeline-desc fs-3 text-dark mt-n1">Payment Done</div>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
@@ -228,47 +211,41 @@
           <table class="table text-nowrap mb-0 align-middle">
             <thead class="text-dark fs-4">
               <tr>
-                <th class="border-bottom-0">
+                <!-- <th class="border-bottom-0">
                   <h6 class="fw-semibold mb-0">Id</h6>
+                </th> -->
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Library Name</h6>
                 </th>
                 <th class="border-bottom-0">
-                  <h6 class="fw-semibold mb-0">Assigned</h6>
+                  <h6 class="fw-semibold mb-0">Number of Transactions</h6>
                 </th>
                 <th class="border-bottom-0">
-                  <h6 class="fw-semibold mb-0">Name</h6>
-                </th>
-                <th class="border-bottom-0">
-                  <h6 class="fw-semibold mb-0">Priority</h6>
-                </th>
-                <th class="border-bottom-0">
-                  <h6 class="fw-semibold mb-0">Budget</h6>
+                  <h6 class="fw-semibold mb-0">Total Transaction Amount</h6>
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngFor="let sale of librariesSales">
                 <td class="border-bottom-0">
-                  <h6 class="fw-semibold mb-0">1</h6>
+                  <h6 class="fw-semibold mb-1">{{ sale.library_name }}</h6>
+                  <span class="fw-normal">Library</span>
                 </td>
                 <td class="border-bottom-0">
-                  <h6 class="fw-semibold mb-1">Sunil Joshi</h6>
-                  <span class="fw-normal">Web Designer</span>
-                </td>
-                <td class="border-bottom-0">
-                  <p class="mb-0 fw-normal">Elite Admin</p>
+                  <p class="mb-0 fw-normal">
+                    Total Transactions: {{ sale.totalTransactions }}
+                  </p>
                 </td>
                 <td class="border-bottom-0">
                   <div class="d-flex align-items-center gap-2">
-                    <span class="badge bg-primary rounded-3 fw-semibold"
-                      >Low</span
-                    >
+                    <span class="badge bg-primary rounded-3 fw-semibold">
+                      ${{ sale.totalAmount }}
+                    </span>
                   </div>
                 </td>
-                <td class="border-bottom-0">
-                  <h6 class="fw-semibold mb-0 fs-4">$3.9</h6>
-                </td>
               </tr>
-              <tr>
+
+              <!-- <tr>
                 <td class="border-bottom-0">
                   <h6 class="fw-semibold mb-0">2</h6>
                 </td>
@@ -333,7 +310,7 @@
                 <td class="border-bottom-0">
                   <h6 class="fw-semibold mb-0 fs-4">$2.4k</h6>
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>

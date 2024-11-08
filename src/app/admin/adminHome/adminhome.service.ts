@@ -16,6 +16,45 @@ export class AdminhomeService {
       const data = await firstValueFrom(
         this.http.get<PaidFee[]>(`${APIURL}PaidFees/GetAllFees`)
       );
+      return data.map((fee) => {
+        const dateString = fee.returningdate;
+        const date = new Date(dateString);
+        let hours = date.getHours();
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+
+        // Convert to 12-hour format
+        hours = hours % 12 || 12; // Convert '0' hour to '12' for AM
+
+        const time = `${hours.toString().padStart(2, '0')}:${minutes} ${ampm}`;
+        return {
+          feeamount: fee.feeamount,
+          returningdate: time, // formatted as "hh:mm AM/PM"
+        };
+      }) as unknown as PaidFee[];
+    } catch (error) {
+      console.error('Error fetching  Paid fees:', error);
+      throw error; // Rethrow or handle the error appropriately
+    }
+  }
+
+  async getLibrariesSales(): Promise<any> {
+    try {
+      const data = await firstValueFrom(
+        this.http.get(`${APIURL}BorrowedBook/LibrarySales`)
+      );
+      return data;
+    } catch (error) {
+      console.error('Error fetching LibrariesSales', error);
+      throw error;
+    }
+  }
+
+  async getTotalIncome(): Promise<number> {
+    try {
+      const data = await firstValueFrom(
+        this.http.get<number>(`${APIURL}BorrowedBook/TotalIncome`)
+      );
       return data;
     } catch (error) {
       console.error('Error fetching  Paid fees:', error);
