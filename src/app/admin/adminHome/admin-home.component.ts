@@ -1,17 +1,10 @@
 import { Component, inject, OnInit, AfterViewInit } from '@angular/core';
 import { AdminhomeService } from './adminhome.service';
-import {
-  Chart,
-  CategoryScale,
-  LinearScale,
-  BarController,
-  BarElement,
-} from 'chart.js'; // Import scales and controllers
+
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import { QUERYKEYS } from 'src/app/queries';
 
 // Register required Chart.js components
-Chart.register(CategoryScale, LinearScale, BarController, BarElement);
 
 @Component({
   selector: 'app-home',

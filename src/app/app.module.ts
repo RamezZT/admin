@@ -59,6 +59,7 @@ import { EditOfferComponent } from './admin/offer/crud/edit-offer/edit-offer.com
 import { ReportComponent } from './admin/report/report.component';
 import { LayoutComponent } from './admin/layout/layout.component';
 import { AdminHomeComponent } from './admin/adminHome/admin-home.component';
+import { EmptyComponent } from './empty/empty.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,7 @@ import { AdminHomeComponent } from './admin/adminHome/admin-home.component';
     AddOfferComponent,
     EditOfferComponent,
     ReportComponent,
+    EmptyComponent,
   ],
   imports: [
     BrowserModule,
