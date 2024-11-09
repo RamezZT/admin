@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
 import { APIURL } from 'src';
 import { CreateBookResponse, CreateBookType, EditBookType } from './types';
 import { Book } from 'src/types';
@@ -135,7 +135,12 @@ export class BooksService {
   // Delete Functions
   async deleteBook(id: number) {
     try {
-      const data = this.http.delete<Book[]>(`${APIURL}Book/DeleteBook/${id}`);
+      console.log(id);
+      const data = await firstValueFrom(
+        this.http.delete<Book[]>(`${APIURL}Book/DeleteBook/${id}`)
+      );
+
+      console.log(data);
     } catch (error) {
       console.error('Error deleting Book:', error);
       throw error;
@@ -144,17 +149,18 @@ export class BooksService {
 
   async editBook(id: number, editBook: EditBookType) {
     try {
-      console.log(id);
-      console.log(editBook);
-
-      const response = this.http.put<CreateBookResponse>(
-        `${APIURL}Book/update-book`,
-        { ...editBook, bookId: id }
+      const response = await firstValueFrom(
+        this.http.put<CreateBookResponse>(`${APIURL}Book/update-book`, {
+          ...editBook,
+          bookId: id,
+        })
       );
+
       console.log(response);
-      if (editBook.image) {
+      if (editBook.imageFile) {
         const form = new FormData();
-        form.append('imageFile', editBook.image);
+        console.log('updating Image');
+        form.append('imageFile', editBook.imageFile);
         console.log(id);
         console.log(editBook.image);
         const imageRes = await lastValueFrom(
@@ -162,8 +168,6 @@ export class BooksService {
         );
         console.log(imageRes);
       }
-
-      if (!response) throw new Error('Update failed');
     } catch (error) {
       console.error('Error updating book:', error);
       throw error;

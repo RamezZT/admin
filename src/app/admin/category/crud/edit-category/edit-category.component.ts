@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../category.service';
 import {
   injectQuery,
@@ -16,17 +16,36 @@ import { Category } from 'src/types';
   templateUrl: './edit-category.component.html',
   styleUrls: ['./edit-category.component.css'],
 })
-export class EditCategoryComponent {
+export class EditCategoryComponent implements OnInit {
   categoryForm: FormGroup;
   selectedFile: File | null = null;
   categoriesService = inject(CategoryService);
   queryClient = injectQueryClient();
-
-  constructor(private route: ActivatedRoute, private fb: FormBuilder) {
+  router: Router;
+  id: number = -1;
+  constructor(
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    router: Router
+  ) {
     // Initialize form with validation
     this.categoryForm = this.fb.group({
       categoryname: [''],
     });
+    this.router = router;
+  }
+  ngOnInit() {
+    this.id = +this.route.snapshot.paramMap.get('id')!;
+    if (!this.route.snapshot.paramMap.get('id')) {
+      alert('Fuck');
+    }
+    this.fillData();
+  }
+
+  fillData() {
+    const data = this.categoryQuery.data()!;
+    if (!data) return;
+    this.categoryForm.patchValue(data);
   }
 
   // Query to fetch category data by ID
@@ -55,16 +74,17 @@ export class EditCategoryComponent {
       });
     },
     onSuccess: () => {
-      client.invalidateQueries({
+      client.refetchQueries({
         queryKey: [
           QUERYKEYS.categories,
           +(this.route.snapshot.paramMap.get('id') ?? -1),
         ],
       });
-      client.invalidateQueries({
+      client.refetchQueries({
         queryKey: [QUERYKEYS.categories],
       });
       alert('Category updated successfully');
+      this.router.navigate(['/admin/category']);
     },
   }));
 

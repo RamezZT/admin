@@ -7,6 +7,7 @@ import {
 } from '@tanstack/angular-query-experimental';
 import { QUERYKEYS } from 'src/app/queries';
 import { EditHomePageType } from '../../types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-home-page',
@@ -18,11 +19,14 @@ export class EditHomePageComponent {
   queryClient = injectQueryClient();
   selectedFileLogo: File | null = null;
   selectedFileMain: File | null = null;
-
+  router: Router;
   query = injectQuery(() => ({
     queryKey: [QUERYKEYS.homepage],
     queryFn: () => this.homePageService.getHomePage(),
   }));
+  constructor(router: Router) {
+    this.router = router;
+  }
 
   mutation = injectMutation((client) => ({
     mutationFn: (homePage: EditHomePageType) =>
@@ -34,6 +38,7 @@ export class EditHomePageComponent {
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.homepage] });
       alert('Home page information updated');
+      this.router.navigate(['/admin/homepage']);
     },
   }));
 

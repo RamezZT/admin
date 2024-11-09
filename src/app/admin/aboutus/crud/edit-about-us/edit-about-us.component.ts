@@ -7,6 +7,7 @@ import {
 } from '@tanstack/angular-query-experimental';
 import { QUERYKEYS } from 'src/app/queries';
 import { EditAboutUsType } from '../../types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-about-us',
@@ -16,11 +17,14 @@ import { EditAboutUsType } from '../../types';
 export class EditAboutUsComponent {
   aboutusService = inject(AboutusService);
   queryClient = injectQueryClient();
-
+  router: Router;
   query = injectQuery(() => ({
     queryKey: [QUERYKEYS.aboutus],
     queryFn: () => this.aboutusService.getAboutUs(),
   }));
+  constructor(router: Router) {
+    this.router = router;
+  }
 
   mutation = injectMutation((client) => ({
     mutationFn: async (aboutUs: EditAboutUsType) =>
@@ -28,6 +32,7 @@ export class EditAboutUsComponent {
     onSuccess: () => {
       // Invalidate and refetch todos after a successful mutation
       client.invalidateQueries({ queryKey: [QUERYKEYS.aboutus] });
+      this.router.navigate(['/admin/aboutus']);
       alert('Edited');
     },
   }));

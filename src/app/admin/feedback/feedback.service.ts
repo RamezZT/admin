@@ -16,6 +16,9 @@ export class FeedbackService {
       const data = await firstValueFrom(
         this.http.get<FeedBack[]>(`${APIURL}Feedback/all-feedbacks`)
       );
+      console.log(
+        data.filter((d) => d.status.toLocaleLowerCase() === 'pending')
+      );
       return data;
     } catch (error) {
       console.log('An error occurred while fetching the feedbacks');

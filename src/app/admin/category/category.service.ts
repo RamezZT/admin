@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { APIURL } from 'src';
 import { Category, LibraryCategory } from 'src/types';
 import { CreateCategoryType, EditCategoryType } from './types';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,32 +11,57 @@ import { firstValueFrom, lastValueFrom } from 'rxjs';
 export class CategoryService {
   constructor(private http: HttpClient) {}
 
-  createCategory(createCategory: CreateCategoryType): Promise<any> {
-    console.log('Creating category:', JSON.stringify(createCategory));
-    return this.http
-      .post(`${APIURL}Category/add-category`, createCategory, {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      })
-      .toPromise();
+  async createCategory(createCategoryData: CreateCategoryType): Promise<any> {
+    console.log('Creating category:', JSON.stringify(createCategoryData));
+    try {
+      const data = (await firstValueFrom(
+        this.http.post(
+          `${APIURL}Category/add-category`,
+          { categoryname: createCategoryData.categoryname },
+          {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+          }
+        )
+      )) as { id: number };
+
+      console.log('Category created successfully:', data);
+
+      const formData = new FormData();
+      formData.append('imageFile', createCategoryData.imageFile);
+
+      const imgRes = await firstValueFrom(
+        this.http.put(`${APIURL}Category/upload-image/${data.id}`, formData)
+      );
+      console.log(imgRes);
+
+      return data;
+    } catch (error) {
+      console.error('Error creating category:', error);
+      throw error; // or return an error response
+    }
   }
 
-  getAllCategories(): Promise<Category[]> {
-    return firstValueFrom(
+  async getAllCategories(): Promise<Category[]> {
+    return await firstValueFrom(
       this.http.get<Category[]>(`${APIURL}Category/categories`)
     );
   }
 
-  getAllLibrariesCategories(): Promise<LibraryCategory[]> {
-    return firstValueFrom(
+  async getAllLibrariesCategories(): Promise<LibraryCategory[]> {
+    const data = await firstValueFrom(
       this.http.get<LibraryCategory[]>(`${APIURL}LibraryCategory/AllLibCat`)
+    );
+    console.log(data);
+    return data;
+  }
+
+  async getCategoryById(id: number): Promise<Category> {
+    return await firstValueFrom(
+      this.http.get<Category>(`${APIURL}Category/${id}`)
     );
   }
 
-  getCategoryById(id: number): Promise<Category> {
-    return firstValueFrom(this.http.get<Category>(`${APIURL}Category/${id}`));
-  }
-
-  deleteCategory(id: number) {
+  async deleteCategory(id: number) {
     this.http.delete<void>(`${APIURL}Category/${id}`).toPromise();
   }
 
@@ -46,7 +71,7 @@ export class CategoryService {
       if (editCategory.image) {
         const formData = new FormData();
         console.log(editCategory.image);
-        formData.append('imageFile', editCategory.image);
+        formData.append('imageFile', editCategory.image!);
         const imgRes = await firstValueFrom(
           this.http.put(
             `${APIURL}Category/upload-image/${editCategory.categoryid}`,

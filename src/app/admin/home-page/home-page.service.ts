@@ -31,12 +31,16 @@ export class HomePageService {
     mainImageFile: File | null
   ) {
     try {
+      console.log(editHomePage);
       // Update the HomePage details
-      this.http.put(`${APIURL}HomePage/update`, editHomePage);
+      await firstValueFrom(
+        this.http.put(`${APIURL}HomePage/update`, editHomePage)
+      );
+
       // Upload logo image if provided
       if (logoImageFile) {
         const formDataLogo = new FormData();
-        formDataLogo.append('imageFile', logoImageFile);
+        formDataLogo.append('imageFile', logoImageFile!);
         await firstValueFrom(
           this.http.put(
             `${APIURL}HomePage/upload-logo/${editHomePage.id}`,
@@ -48,7 +52,7 @@ export class HomePageService {
       // Upload main image if provided
       if (mainImageFile) {
         const formDataMain = new FormData();
-        formDataMain.append('imageFile', mainImageFile);
+        formDataMain.append('imageFile', mainImageFile!);
         await firstValueFrom(
           this.http.put(
             `${APIURL}HomePage/upload-main/${editHomePage.id}`,

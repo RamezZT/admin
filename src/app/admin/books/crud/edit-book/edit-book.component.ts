@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   injectQueryClient,
   injectQuery,
@@ -17,18 +17,22 @@ import { AuthorService } from 'src/app/admin/author/author.service';
   templateUrl: './edit-book.component.html',
   styleUrls: ['./edit-book.component.css'],
 })
-export class EditBookComponent {
+export class EditBookComponent implements OnInit {
   bookForm: FormGroup;
   bookId: number;
-
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
+  router: Router;
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    router: Router
+  ) {
     this.bookForm = this.fb.group({
       bookname: ['', Validators.required],
       languages: ['', Validators.required],
       numberofpages: [0, Validators.required],
       releasedate: [new Date(), Validators.required],
       descriptions: ['', Validators.required],
-      image: [''],
+      imageFile: [''],
       quantity: [0, Validators.required],
       priceperday: [0, Validators.required],
       authorid: [0, Validators.required],
@@ -36,6 +40,7 @@ export class EditBookComponent {
       libraryid: [0],
     });
     this.bookId = +this.route.snapshot.paramMap.get('id')!;
+    this.router = router;
   }
 
   booksService = inject(BooksService);
@@ -47,9 +52,14 @@ export class EditBookComponent {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
       this.bookForm.patchValue({
-        image: fileInput.files[0],
+        imageFile: fileInput.files[0],
       });
     }
+  }
+
+  ngOnInit(): void {
+    if (!this.route.snapshot.paramMap.get('id')) return;
+    this.bookForm.patchValue(this.bookQuery.data()!);
   }
 
   editBookMutation = injectMutation((client) => ({
@@ -61,6 +71,7 @@ export class EditBookComponent {
       client.refetchQueries({ queryKey: [QUERYKEYS.allBooks] });
       client.refetchQueries({ queryKey: [QUERYKEYS.book, this.bookId] });
       alert('Edited');
+      this.router.navigate(['/admin/books']);
     },
   }));
 

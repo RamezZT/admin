@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import { QUERYKEYS } from 'src/app/queries';
 import { FeedbackService } from '../../feedback.service'; // Adjust the path to your FeedbackService
 import { FeedBack } from 'src/types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-feedbacks',
@@ -13,11 +14,15 @@ export class GetAllFeedbackComponent {
   feedbackService = inject(FeedbackService);
   searchTerm = '';
   filter = '';
-
+  rotuer: Router;
   query = injectQuery(() => ({
     queryKey: [QUERYKEYS.allfeedback], // Adjust the query key
     queryFn: () => this.feedbackService.getAllFeedback(), // Call the method to get all feedback
   }));
+
+  constructor(router: Router) {
+    this.rotuer = router;
+  }
 
   onFilterChange = (val: string) => (this.filter = val);
   get isLoading() {

@@ -21,9 +21,12 @@ export class LibraryService {
       const { id } = await firstValueFrom(
         this.http.post<{ id: number }>(`${APIURL}Library/add-library`, {
           ...createLibrary,
+          longitude: createLibrary.longitude + '',
+          latitude: createLibrary.latitude + '',
           image: null,
         })
       );
+      console.log(id);
       const formData = new FormData();
       formData.append('imageFile', createLibrary.image);
       console.log(createLibrary.image);
@@ -69,6 +72,8 @@ export class LibraryService {
         },
         body: JSON.stringify({
           ...editLibrary,
+          longitude: editLibrary.longitude + '',
+          latitude: editLibrary.latitude + '',
           image: null,
         }),
       });
@@ -97,6 +102,7 @@ export class LibraryService {
 
   async deleteLibrary(id: number) {
     try {
+      console.log(id);
       await firstValueFrom(
         this.http.delete(`${APIURL}Library/delete-library/${id}`)
       );
@@ -108,9 +114,14 @@ export class LibraryService {
 
   async getLibraryById(id: number): Promise<Library> {
     try {
-      return await firstValueFrom(
-        this.http.get<Library>(`${APIURL}Library/${id}`)
+      console.log(id);
+      console.log(APIURL);
+      const data = await firstValueFrom(
+        this.http.get<Library>(`${APIURL}Library/GetLibraryById/${id}`)
       );
+      console.log('here ramez');
+      console.log(data);
+      return data;
     } catch (error) {
       console.error('Error fetching library by ID:', error);
       throw error;
@@ -119,12 +130,15 @@ export class LibraryService {
 
   async addLibraryCategory(editLibraryCategory: EditLibraryCategory) {
     try {
-      await firstValueFrom(
+      console.log(editLibraryCategory);
+      const data = await firstValueFrom(
         this.http.post(
           `${APIURL}LibraryCategory/CreateLibCat`,
           editLibraryCategory
         )
       );
+      console.log(data);
+      return data;
     } catch (error) {
       console.error('Error adding library category:', error);
       throw error;
@@ -133,8 +147,11 @@ export class LibraryService {
 
   async deleteLibraryCategory(libraryCategoryId: number) {
     try {
+      console.log(libraryCategoryId);
       await firstValueFrom(
-        this.http.delete(`${APIURL}LibraryCategory?id=${libraryCategoryId}`)
+        this.http.delete(
+          `${APIURL}LibraryCategory/DeleteLibCat?id=${libraryCategoryId}`
+        )
       );
     } catch (error) {
       console.error('Error deleting library category:', error);

@@ -12,7 +12,10 @@ export type CreateBookType = {
   // libraryid: number;
 };
 
-export type EditBookType = Partial<CreateBookType> & { bookid: number };
+export type EditBookType = Partial<CreateBookType> & {
+  bookid: number;
+  imageFile?: File;
+};
 export type UpdateBookType = {};
 
 export type CreateBookResponse = {

@@ -34,44 +34,38 @@ export class EditLibraryCategoriesComponent {
   }
 
   addCategoryMutation = injectMutation((client) => ({
-    mutationFn: (editLibraryCategory: EditLibraryCategory) =>
+    mutationFn: async (editLibraryCategory: EditLibraryCategory) =>
       this.libraryService.addLibraryCategory(editLibraryCategory),
     onSuccess: () => {
-      client.invalidateQueries({ queryKey: [QUERYKEYS.categories] });
-      client.invalidateQueries({ queryKey: [QUERYKEYS.librarycategories] });
-      alert('Category Added updated successfully');
+      client.refetchQueries({ queryKey: [QUERYKEYS.categories] });
+      client.refetchQueries({ queryKey: [QUERYKEYS.librarycategories] });
+      alert('Category added successfully');
     },
   }));
 
   removeCategoryMutation = injectMutation((client) => ({
-    mutationFn: (libraryCategoryId: number) =>
+    mutationFn: async (libraryCategoryId: number) =>
       this.libraryService.deleteLibraryCategory(libraryCategoryId),
     onSuccess: () => {
-      client.invalidateQueries({ queryKey: [QUERYKEYS.categories] });
-      client.invalidateQueries({ queryKey: [QUERYKEYS.librarycategories] });
-      alert('Category Added updated successfully');
+      client.refetchQueries({ queryKey: [QUERYKEYS.categories] });
+      client.refetchQueries({ queryKey: [QUERYKEYS.librarycategories] });
+      alert('Category removed successfully');
     },
   }));
 
   allCategoriesQuery = injectQuery(() => ({
     queryKey: [QUERYKEYS.categories],
     queryFn: async () => {
-      const categories = await this.categoryService
-        .getAllCategories
-        // +(this.route.snapshot.paramMap.get('id') ?? 0)
-        ();
-      // here u should select all the already selected categories
-      // if (categories) this.bookForm.patchValue(book);
+      const categories = await this.categoryService.getAllCategories();
       return categories;
     },
   }));
 
-  allLibrariesCategoriesIds = injectQuery(() => ({
+  allLibrariesCategories = injectQuery(() => ({
     queryKey: [QUERYKEYS.librarycategories],
     queryFn: async () => {
       const libraryCategories =
         await this.categoryService.getAllLibrariesCategories();
-
       return libraryCategories;
     },
   }));
@@ -105,24 +99,25 @@ export class EditLibraryCategoriesComponent {
   }
 
   get LibraryCategoriesData() {
-    const libraryCategoriesIds = this.allLibrariesCategoriesIds
+    // console.log(this.allLibrariesCategories.data());
+    const libraryCategoriesIds = this.allLibrariesCategories
       .data()
       ?.filter(
-        (categ) =>
-          categ.libraryid ===
-          +(this.route.snapshot.paramMap.get('libraryId') ?? -1)
+        (libcat) =>
+          libcat.libraryid === +this.route.snapshot.paramMap.get('libraryId')!
       )
-      .map((categ) => categ.categoryid);
+      .map((libcat) => libcat.categoryid);
+
+    // console.log('librarCategoriesIds', libraryCategoriesIds);
 
     return this.allCategoriesQuery
       .data()
-      ?.filter((category: Category) =>
-        libraryCategoriesIds?.includes(category.categoryid)
-      )
-      ?.filter((category: Category) =>
-        category.categoryname
-          .toLowerCase()
-          .includes(this.searchTerm.toLowerCase())
+      ?.filter(
+        (category: Category) =>
+          libraryCategoriesIds?.includes(category.categoryid) &&
+          category.categoryname
+            .toLowerCase()
+            .includes(this.searchTerm.toLowerCase())
       );
   }
 
@@ -158,20 +153,25 @@ export class EditLibraryCategoriesComponent {
 
     await this.addCategoryMutation.mutateAsync({
       categoryid,
-      libraryid: +(this.route.snapshot.paramMap.get('libraryId') ?? 0),
+      libraryid: this.id!,
     });
   }
 
   async onRemoveCategory(categoryId: number) {
-    const { librarycategoryid } = this.allLibrariesCategoriesIds
+    const libraryCategory = this.allLibrariesCategories
       .data()
       ?.find(
         (libcat) =>
-          libcat.categoryid === categoryId &&
-          libcat.libraryid ===
-            +(this.route.snapshot.paramMap.get('libraryId') ?? 0)
-      )!;
-    console.log(librarycategoryid);
-    await this.removeCategoryMutation.mutateAsync(librarycategoryid);
+          libcat.categoryid === categoryId && libcat.libraryid === this.id
+      );
+
+    if (!libraryCategory) {
+      alert('Category not found or already removed.');
+      return;
+    }
+
+    await this.removeCategoryMutation.mutateAsync(
+      libraryCategory.librarycategoryid
+    );
   }
 }

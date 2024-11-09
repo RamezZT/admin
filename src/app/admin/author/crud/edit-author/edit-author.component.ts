@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   injectQuery,
   injectQueryClient,
@@ -19,16 +19,35 @@ export class EditAuthorComponent implements OnInit {
   authorForm: FormGroup;
   id: number | null = null;
   image: File | null = null;
-
   authorsService = inject(AuthorService);
   queryClient = injectQueryClient();
+  private router: Router;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder) {
+  constructor(
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    router: Router
+  ) {
     // Initialize form with validation
     this.authorForm = this.fb.group({
       authorname: ['', Validators.required],
       bio: ['', Validators.required],
     });
+    this.router = router;
+  }
+
+  ngOnInit() {
+    this.id = +this.route.snapshot.paramMap.get('id')!;
+    if (!this.route.snapshot.paramMap.get('id')) {
+      alert('Nope');
+    }
+    this.fillData();
+  }
+
+  fillData() {
+    const data = this.authorQuery.data()!;
+    if (!data) return;
+    this.authorForm.patchValue(data);
   }
 
   // Query to fetch author data by ID
@@ -55,13 +74,10 @@ export class EditAuthorComponent implements OnInit {
       }), // Update the author by ID
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.allauthors] });
+      this.router.navigate(['/admin/author']); // Replace with your target route
       alert('Author updated successfully');
     },
   }));
-
-  ngOnInit(): void {
-    this.id = +(this.route.snapshot.paramMap.get('id') ?? 0);
-  }
 
   onFileChange(event: Event): void {
     const fileInput = event.target as HTMLInputElement;

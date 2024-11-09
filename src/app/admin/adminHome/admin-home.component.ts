@@ -81,45 +81,42 @@ export class AdminHomeComponent implements OnInit, AfterViewInit {
 
   // Function to update the chart based on the selected month
   updateChart() {
-    const monthlyIncome = this.monthlyIncome;
-    const selectedIncome = monthlyIncome[this.selectedMonth] || 0;
-
-    const ctx = document.getElementById('myChart') as HTMLCanvasElement;
-
-    if (ctx) {
-      // Destroy the existing chart if it exists
-      if (this.chart) {
-        this.chart.destroy();
-      }
-
-      // Create a new Chart.js chart
-      this.chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: [this.selectedMonth],
-          datasets: [
-            {
-              label: 'Income',
-              data: [selectedIncome],
-              backgroundColor: 'rgba(75, 192, 192, 0.2)',
-              borderColor: 'rgba(75, 192, 192, 1)',
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              type: 'linear', // Explicitly set the scale type
-              beginAtZero: true,
-              ticks: {
-                stepSize: 100,
-              },
-            },
-          },
-        },
-      });
-    }
+    // const monthlyIncome = this.monthlyIncome;
+    // const selectedIncome = monthlyIncome[this.selectedMonth] || 0;
+    // const ctx = document.getElementById('myChart') as HTMLCanvasElement;
+    // if (ctx) {
+    //   // Destroy the existing chart if it exists
+    //   if (this.chart) {
+    //     this.chart.destroy();
+    //   }
+    //   // Create a new Chart.js chart
+    //   this.chart = new Chart(ctx, {
+    //     type: 'bar',
+    //     data: {
+    //       labels: [this.selectedMonth],
+    //       datasets: [
+    //         {
+    //           label: 'Income',
+    //           data: [selectedIncome],
+    //           backgroundColor: 'rgba(75, 192, 192, 0.2)',
+    //           borderColor: 'rgba(75, 192, 192, 1)',
+    //           borderWidth: 1,
+    //         },
+    //       ],
+    //     },
+    //     options: {
+    //       responsive: true,
+    //       scales: {
+    //         y: {
+    //           type: 'linear', // Explicitly set the scale type
+    //           beginAtZero: true,
+    //           ticks: {
+    //             stepSize: 100,
+    //           },
+    //         },
+    //       },
+    //     },
+    //   });
+    // }
   }
 }

@@ -10,6 +10,7 @@ import { CreateBookType } from '../../types';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/admin/category/category.service';
 import { AuthorService } from 'src/app/admin/author/author.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
@@ -17,8 +18,8 @@ import { AuthorService } from 'src/app/admin/author/author.service';
 })
 export class AddBookComponent {
   bookForm: FormGroup;
-
-  constructor(private fb: FormBuilder) {
+  router: Router;
+  constructor(private fb: FormBuilder, router: Router) {
     this.bookForm = this.fb.group({
       bookname: ['', Validators.required],
       languages: ['', Validators.required],
@@ -32,6 +33,7 @@ export class AddBookComponent {
       categoryid: [0, Validators.required],
       // libraryid: [0, Validators.required],
     });
+    this.router = router;
   }
 
   booksService = inject(BooksService);
@@ -45,6 +47,7 @@ export class AddBookComponent {
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.allBooks] });
       alert('created');
+      this.router.navigate(['/admin/books']);
     },
   }));
 

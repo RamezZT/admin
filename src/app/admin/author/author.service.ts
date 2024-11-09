@@ -100,9 +100,10 @@ export class AuthorService {
   // Delete an author by ID
   async deleteAuthor(id: number) {
     try {
-      const response = await lastValueFrom(
+      const response = await firstValueFrom(
         this.http.delete(`${APIURL}Author/${id}`)
       );
+
       return response;
     } catch (error) {
       console.error('Error deleting author:', error);

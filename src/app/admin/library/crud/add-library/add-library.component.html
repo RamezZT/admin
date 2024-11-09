@@ -1,4 +1,3 @@
-<!-- Form to create a new library -->
 <div class="card">
   <div class="card-body">
     <form [formGroup]="libraryForm" (ngSubmit)="onCreateLibrary()">
@@ -33,16 +32,6 @@
         />
       </div>
       <div class="mb-3">
-        <label for="longitude" class="form-label">Longitude</label>
-        <input
-          type="text"
-          id="longitude"
-          formControlName="longitude"
-          placeholder="Enter Longitude"
-          class="form-control"
-        />
-      </div>
-      <div class="mb-3">
         <label for="image" class="form-label">Image</label>
         <input
           type="file"
@@ -54,5 +43,8 @@
 
       <button type="submit" class="btn btn-primary">Create Library</button>
     </form>
+
+    <!-- Map container -->
+    <div id="map" style="height: 400px; margin-top: 20px"></div>
   </div>
 </div>

@@ -7,6 +7,7 @@ import {
 import { QUERYKEYS } from 'src/app/queries';
 import { CreateCategoryType } from '../../types';
 import { CategoryService } from '../../category.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-category',
@@ -15,32 +16,38 @@ import { CategoryService } from '../../category.service';
 })
 export class AddCategoryComponent {
   categoryForm: FormGroup;
-
-  constructor(private fb: FormBuilder) {
+  router: Router;
+  constructor(private fb: FormBuilder, router: Router) {
     this.categoryForm = this.fb.group({
       categoryname: ['', Validators.required],
-      iconpath: [''],
+      imageFile: null,
     });
+    this.router = router;
   }
 
   categoriesService = inject(CategoryService);
   queryClient = injectQueryClient();
 
   mutation = injectMutation((client) => ({
-    mutationFn: (createCategory: CreateCategoryType) =>
-      this.categoriesService.createCategory(createCategory),
+    mutationFn: async (createCategory: CreateCategoryType) => {
+      console.log(createCategory);
+      return this.categoriesService.createCategory(createCategory);
+    },
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.categories] });
       alert('Category created successfully');
+      this.router.navigate(['/admin/category']);
     },
   }));
 
   onFileChange(event: Event): void {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
+      console.log(fileInput.files[0]);
       this.categoryForm.patchValue({
-        iconpath: fileInput.files[0],
+        imageFile: fileInput.files[0],
       });
+      console.log(this.categoryForm.value);
     }
   }
 

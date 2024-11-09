@@ -8,6 +8,7 @@ import {
 } from '@tanstack/angular-query-experimental';
 import { QUERYKEYS } from 'src/app/queries';
 import { EditContactUsType } from '../../types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-contact-us',
@@ -18,7 +19,11 @@ export class EditContactUsComponent {
   contactUsService = inject(ContactUsService);
   queryClient = injectQueryClient();
   selectedFile: File | null = null; // Holds the selected file
+  router: Router;
 
+  constructor(router: Router) {
+    this.router = router;
+  }
   query = injectQuery(() => ({
     queryKey: [QUERYKEYS.contactus],
     queryFn: () => this.contactUsService.getContactUs(),
@@ -29,6 +34,8 @@ export class EditContactUsComponent {
       this.contactUsService.editContactUs(contactUs, this.selectedFile), // Pass the file
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.contactus] });
+      this.router.navigate(['/admin/contactus']);
+
       alert('Contact information updated');
     },
   }));

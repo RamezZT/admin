@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   injectMutation,
   injectQuery,
@@ -14,11 +14,15 @@ import { ReplyToFeedBackType } from '../../types';
   styleUrls: ['./feedback-info.component.css'],
 })
 export class FeedbackInfoComponent {
-  constructor(private route: ActivatedRoute) {
+  router: Router;
+
+  constructor(private route: ActivatedRoute, router: Router) {
     this.id = +this.route.snapshot.paramMap.get('id')!;
+    this.router = router;
     console.log(this.id);
   }
   id: number;
+
   feedbackService = inject(FeedbackService);
   emailReplyBody = '';
 
@@ -34,8 +38,11 @@ export class FeedbackInfoComponent {
     },
     onSuccess: () => {
       alert('Replied Successfully');
-      queryClient.refetchQueries({ queryKey: [QUERYKEYS.allfeedback] });
-      queryClient.refetchQueries({ queryKey: [QUERYKEYS.feedback, this.id] });
+      setTimeout(() => {
+        queryClient.refetchQueries({ queryKey: [QUERYKEYS.allfeedback] });
+        queryClient.refetchQueries({ queryKey: [QUERYKEYS.feedback, this.id] });
+        this.router.navigate(['/admin/feedback']);
+      }, 800);
     },
   }));
 
@@ -60,7 +67,6 @@ export class FeedbackInfoComponent {
   }
 
   get feedback() {
-    console.log(this.query.data());
     return this.query.data()!;
   }
 }

@@ -8,6 +8,7 @@ import {
 import { QUERYKEYS } from 'src/app/queries';
 import { Offer } from 'src/types';
 import { LibraryService } from 'src/app/admin/library/library.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-offer',
@@ -16,12 +17,13 @@ import { LibraryService } from 'src/app/admin/library/library.service';
 })
 export class AddOfferComponent {
   offerForm: FormGroup;
-
+  router: Router;
   offersService = inject(OffersService);
   librariesService = inject(LibraryService);
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, router: Router) {
     // Initialize form with validation
+    this.router = router;
     this.offerForm = this.fb.group({
       offerpercentage: [
         '',
@@ -41,6 +43,7 @@ export class AddOfferComponent {
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.alloffers] });
       alert('Offer created successfully');
+      this.router.navigate(['/admin/offer']);
     },
   }));
 

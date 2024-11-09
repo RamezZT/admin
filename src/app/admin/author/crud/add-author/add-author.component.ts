@@ -7,6 +7,7 @@ import {
 import { CreateAuthorType } from '../../types';
 import { AuthorService } from '../../author.service';
 import { QUERYKEYS } from 'src/app/queries';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-author',
@@ -15,11 +16,12 @@ import { QUERYKEYS } from 'src/app/queries';
 })
 export class AddAuthorComponent {
   authorForm: FormGroup;
+  router: Router;
 
   authorsService = inject(AuthorService);
   queryClient = injectQueryClient();
-
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, router: Router) {
+    this.router = router;
     // Initialize form with validation
     this.authorForm = this.fb.group({
       authorname: ['', Validators.required],
@@ -33,6 +35,7 @@ export class AddAuthorComponent {
       this.authorsService.createAuthor(newAuthor),
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.allauthors] });
+      this.router.navigate(['/admin/author']);
       alert('Author created successfully');
     },
   }));

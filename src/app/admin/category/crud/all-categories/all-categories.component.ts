@@ -31,7 +31,7 @@ export class AllCategoriesComponent {
     mutationFn: async (id: number) =>
       await this.categoriesService.deleteCategory(id), // Update the author by ID
     onSuccess: () => {
-      client.invalidateQueries({ queryKey: [QUERYKEYS.categories] });
+      client.refetchQueries({ queryKey: [QUERYKEYS.categories] });
       alert('Category Deleted successfully');
     },
   }));

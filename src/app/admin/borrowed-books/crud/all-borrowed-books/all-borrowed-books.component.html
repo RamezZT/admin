@@ -74,18 +74,18 @@
                   {{ borrowedBook.duedate | date }}
                 </td>
                 <td class="border-bottom-0">
-                  <span class="badge bg-primary rounded-3 fw-semibold">{{
-                    borrowedBook.library?.name
-                  }}</span>
+                  <span>{{ borrowedBook.library?.name }}</span>
                 </td>
                 <td class="border-bottom-0">{{ borrowedBook.status }}</td>
 
                 <td
-                  *ngIf="borrowedBook.status === 'Not Returned'"
+                  *ngIf="
+                    borrowedBook.status?.toLocaleLowerCase() === 'not returned'
+                  "
                   class="border-bottom-0"
                   (click)="handleStatusChange(borrowedBook.id)"
                 >
-                  Retrun Book
+                  <button class="return-btn">Retrun Book</button>
                 </td>
               </tr>
             </tbody>
