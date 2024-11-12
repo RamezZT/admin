@@ -8,6 +8,7 @@ import {
 import { QUERYKEYS } from 'src/app/queries';
 import { EditAboutUsType } from '../../types';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-about-us',
@@ -22,7 +23,7 @@ export class EditAboutUsComponent {
     queryKey: [QUERYKEYS.aboutus],
     queryFn: () => this.aboutusService.getAboutUs(),
   }));
-  constructor(router: Router) {
+  constructor(router: Router, private toastr: ToastrService) {
     this.router = router;
   }
 
@@ -32,8 +33,8 @@ export class EditAboutUsComponent {
     onSuccess: () => {
       // Invalidate and refetch todos after a successful mutation
       client.invalidateQueries({ queryKey: [QUERYKEYS.aboutus] });
+      this.toastr.success('About us Edited');
       this.router.navigate(['/admin/aboutus']);
-      alert('Edited');
     },
   }));
 

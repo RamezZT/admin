@@ -6,12 +6,14 @@ import {
 import { QUERYKEYS } from 'src/app/queries';
 import { TestimonialService } from '../../testimonial.service';
 import { Testimonial } from 'src/types';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-all-testimonial',
   templateUrl: './all-testimonial.component.html',
   styleUrls: ['./all-testimonial.component.css'],
 })
 export class AllTestimonialComponent {
+  constructor(private toastr: ToastrService) {}
   testimonialService = inject(TestimonialService);
   searchTerm = '';
   filter = 'Pending';
@@ -32,7 +34,7 @@ export class AllTestimonialComponent {
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.pendingtestimonial] });
       client.invalidateQueries({ queryKey: [QUERYKEYS.acceptedtestimonial] });
-      alert('Accepted');
+      this.toastr.success('Accepted');
     },
   }));
 
@@ -43,7 +45,7 @@ export class AllTestimonialComponent {
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.pendingtestimonial] });
       client.invalidateQueries({ queryKey: [QUERYKEYS.acceptedtestimonial] });
-      alert('Deleted');
+      this.toastr.success('Deleted');
     },
   }));
 

@@ -14,24 +14,24 @@
   <!-- Display contact information if data is loaded -->
   <div *ngIf="!isLoading && !isError" class="card">
     <div class="card-body">
-      <div class="mb-3">
-        <label class="form-label">Location</label>
+      <div class="mb-4 text-center">
+        <label class="form-label h5">Location</label>
         <h2>{{ contactUsData?.location }}</h2>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Email</label>
+      <div class="mb-4 text-center">
+        <label class="form-label h5">Email</label>
         <p>{{ contactUsData?.email }}</p>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Phone Number</label>
+      <div class="mb-4 text-center">
+        <label class="form-label h5">Phone Number</label>
         <p>{{ contactUsData?.phonenumber }}</p>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Image</label>
+      <div class="mb-4 text-center">
+        <label class="form-label h5">Image</label>
         <img
           [src]="IMGPATH + contactUsData?.image"
           alt="Contact Image"
-          class="img-fluid"
+          class="contact-image img-fluid"
         />
       </div>
     </div>

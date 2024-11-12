@@ -8,6 +8,7 @@ import {
 import { QUERYKEYS } from 'src/app/queries';
 import { Category } from 'src/types';
 import { IMGPATH } from 'src';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-all-categories',
@@ -27,12 +28,14 @@ export class AllCategoriesComponent {
     },
   }));
 
+  constructor(private toastr: ToastrService) {}
+
   deleteMutation = injectMutation((client) => ({
     mutationFn: async (id: number) =>
       await this.categoriesService.deleteCategory(id), // Update the author by ID
     onSuccess: () => {
       client.refetchQueries({ queryKey: [QUERYKEYS.categories] });
-      alert('Category Deleted successfully');
+      this.toastr.success('Category Deleted successfully');
     },
   }));
 

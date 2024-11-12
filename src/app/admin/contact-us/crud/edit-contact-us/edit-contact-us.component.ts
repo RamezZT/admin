@@ -9,6 +9,7 @@ import {
 import { QUERYKEYS } from 'src/app/queries';
 import { EditContactUsType } from '../../types';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-contact-us',
@@ -21,7 +22,7 @@ export class EditContactUsComponent {
   selectedFile: File | null = null; // Holds the selected file
   router: Router;
 
-  constructor(router: Router) {
+  constructor(router: Router, private toastr: ToastrService) {
     this.router = router;
   }
   query = injectQuery(() => ({
@@ -36,7 +37,7 @@ export class EditContactUsComponent {
       client.invalidateQueries({ queryKey: [QUERYKEYS.contactus] });
       this.router.navigate(['/admin/contactus']);
 
-      alert('Contact information updated');
+      this.toastr.success('Contact information updated');
     },
   }));
 

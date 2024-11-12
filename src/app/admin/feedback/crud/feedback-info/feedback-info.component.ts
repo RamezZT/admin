@@ -7,6 +7,7 @@ import {
 import { QUERYKEYS } from 'src/app/queries';
 import { FeedbackService } from '../../feedback.service';
 import { ReplyToFeedBackType } from '../../types';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-feedback-info',
@@ -16,7 +17,11 @@ import { ReplyToFeedBackType } from '../../types';
 export class FeedbackInfoComponent {
   router: Router;
 
-  constructor(private route: ActivatedRoute, router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    router: Router,
+    private toastr: ToastrService
+  ) {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.router = router;
     console.log(this.id);
@@ -37,7 +42,7 @@ export class FeedbackInfoComponent {
       this.feedbackService.replyToFeedBack(replyToFeedBack);
     },
     onSuccess: () => {
-      alert('Replied Successfully');
+      this.toastr.success('Replied Successfully');
       setTimeout(() => {
         queryClient.refetchQueries({ queryKey: [QUERYKEYS.allfeedback] });
         queryClient.refetchQueries({ queryKey: [QUERYKEYS.feedback, this.id] });

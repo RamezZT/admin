@@ -8,6 +8,7 @@ import { CreateAuthorType } from '../../types';
 import { AuthorService } from '../../author.service';
 import { QUERYKEYS } from 'src/app/queries';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-author',
@@ -20,7 +21,11 @@ export class AddAuthorComponent {
 
   authorsService = inject(AuthorService);
   queryClient = injectQueryClient();
-  constructor(private fb: FormBuilder, router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    router: Router,
+    private toastr: ToastrService
+  ) {
     this.router = router;
     // Initialize form with validation
     this.authorForm = this.fb.group({
@@ -36,7 +41,7 @@ export class AddAuthorComponent {
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.allauthors] });
       this.router.navigate(['/admin/author']);
-      alert('Author created successfully');
+      this.toastr.success('Author created successfully');
     },
   }));
 

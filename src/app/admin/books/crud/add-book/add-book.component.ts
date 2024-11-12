@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/admin/category/category.service';
 import { AuthorService } from 'src/app/admin/author/author.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
@@ -19,7 +20,11 @@ import { Router } from '@angular/router';
 export class AddBookComponent {
   bookForm: FormGroup;
   router: Router;
-  constructor(private fb: FormBuilder, router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    router: Router,
+    private toastr: ToastrService
+  ) {
     this.bookForm = this.fb.group({
       bookname: ['', Validators.required],
       languages: ['', Validators.required],
@@ -46,7 +51,7 @@ export class AddBookComponent {
       this.booksService.createBook(createBook),
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.allBooks] });
-      alert('created');
+      this.toastr.success('created');
       this.router.navigate(['/admin/books']);
     },
   }));

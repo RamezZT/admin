@@ -9,6 +9,7 @@ import { QUERYKEYS } from 'src/app/queries';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreateAuthorType } from '../../types';
 import { AuthorService } from '../../author.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-author',
@@ -26,7 +27,8 @@ export class EditAuthorComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    router: Router
+    router: Router,
+    private toastr: ToastrService
   ) {
     // Initialize form with validation
     this.authorForm = this.fb.group({
@@ -39,7 +41,6 @@ export class EditAuthorComponent implements OnInit {
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (!this.route.snapshot.paramMap.get('id')) {
-      alert('Nope');
     }
     this.fillData();
   }
@@ -75,7 +76,7 @@ export class EditAuthorComponent implements OnInit {
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.allauthors] });
       this.router.navigate(['/admin/author']); // Replace with your target route
-      alert('Author updated successfully');
+      this.toastr.success('Author edited successfully');
     },
   }));
 

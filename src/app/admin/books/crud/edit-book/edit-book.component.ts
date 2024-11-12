@@ -11,6 +11,7 @@ import { QUERYKEYS } from 'src/app/queries';
 import { EditBookType } from '../../types';
 import { CategoryService } from 'src/app/admin/category/category.service';
 import { AuthorService } from 'src/app/admin/author/author.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-book',
@@ -24,7 +25,8 @@ export class EditBookComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    router: Router
+    router: Router,
+    private toastr: ToastrService
   ) {
     this.bookForm = this.fb.group({
       bookname: ['', Validators.required],
@@ -70,7 +72,7 @@ export class EditBookComponent implements OnInit {
     onSuccess: () => {
       client.refetchQueries({ queryKey: [QUERYKEYS.allBooks] });
       client.refetchQueries({ queryKey: [QUERYKEYS.book, this.bookId] });
-      alert('Edited');
+      this.toastr.success('Edited');
       this.router.navigate(['/admin/books']);
     },
   }));

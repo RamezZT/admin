@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreateCategoryType, EditCategoryType } from '../../types';
 import { QUERYKEYS } from 'src/app/queries';
 import { Category } from 'src/types';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-category',
@@ -26,7 +27,8 @@ export class EditCategoryComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    router: Router
+    router: Router,
+    private toastr: ToastrService
   ) {
     // Initialize form with validation
     this.categoryForm = this.fb.group({
@@ -37,7 +39,6 @@ export class EditCategoryComponent implements OnInit {
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (!this.route.snapshot.paramMap.get('id')) {
-      alert('Fuck');
     }
     this.fillData();
   }
@@ -83,7 +84,7 @@ export class EditCategoryComponent implements OnInit {
       client.refetchQueries({
         queryKey: [QUERYKEYS.categories],
       });
-      alert('Category updated successfully');
+      this.toastr.success('Category edited successfully');
       this.router.navigate(['/admin/category']);
     },
   }));
@@ -107,7 +108,7 @@ export class EditCategoryComponent implements OnInit {
     if (this.categoryForm.valid) {
       this.mutation.mutate(this.categoryForm.value);
     } else {
-      alert('Invalid Form');
+      this.toastr.success('Invalid Form');
     }
   }
 }

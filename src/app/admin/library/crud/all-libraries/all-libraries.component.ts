@@ -7,6 +7,7 @@ import {
 } from '@tanstack/angular-query-experimental';
 import { QUERYKEYS } from 'src/app/queries';
 import { IMGPATH } from 'src';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-all-libraries',
@@ -14,6 +15,7 @@ import { IMGPATH } from 'src';
   styleUrls: ['./all-libraries.component.css'],
 })
 export class AllLibrariesComponent {
+  constructor(private toastr: ToastrService) {}
   libraryService = inject(LibraryService);
   queryClient = injectQueryClient();
   searchTerm: string = '';
@@ -31,7 +33,7 @@ export class AllLibrariesComponent {
       await this.libraryService.deleteLibrary(id), // Update the author by ID
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.libraries] });
-      alert('Library Deleted successfully');
+      this.toastr.success('Library Deleted successfully');
     },
   }));
 

@@ -21,21 +21,20 @@
                 <th class="border-bottom-0">
                   <h6 class="fw-semibold mb-0">Id</h6>
                 </th>
-                <th class="border-bottom-0">
-                  <h6 class="fw-semibold mb-0">Image</h6>
-                </th>
+
                 <th class="border-bottom-0">
                   <h6 class="fw-semibold mb-0">Name</h6>
                 </th>
                 <th class="border-bottom-0">
                   <h6 class="fw-semibold mb-0">Phone</h6>
                 </th>
+
                 <th class="border-bottom-0">
                   <h6 class="fw-semibold mb-0">Email</h6>
                 </th>
-                <!-- <th class="border-bottom-0">
-                  <h6 class="fw-semibold mb-0">Location</h6>
-                </th> -->
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Image</h6>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -43,25 +42,24 @@
                 <td class="border-bottom-0">
                   <h6 class="fw-semibold mb-0">{{ library.libraryid }}</h6>
                 </td>
-                <td class="border-bottom-0">
-                  <img
-                    [src]="IMGPATH + library.image"
-                    alt=""
-                    class="library-image"
-                  />
-                </td>
+
                 <td class="border-bottom-0">
                   <h6 class="fw-semibold mb-0">{{ library.name }}</h6>
                 </td>
                 <td class="border-bottom-0">
                   <h6 class="fw-semibold mb-1">{{ library.phonenumber }}</h6>
                 </td>
+
                 <td class="border-bottom-0">
                   <h6 class="fw-semibold mb-1">{{ library.email }}</h6>
                 </td>
-                <!-- <td class="border-bottom-0">
-                  <h6 class="fw-semibold mb-1">{{ library.latitude }}</h6>
-                </td> -->
+                <td class="border-bottom-0">
+                  <img
+                    [src]="IMGPATH + library.image"
+                    alt="Library Image"
+                    class="library-image img-fluid"
+                  />
+                </td>
                 <td class="border-bottom-0" style="display: flex; gap: 6px">
                   <button
                     class="btn btn-primary"

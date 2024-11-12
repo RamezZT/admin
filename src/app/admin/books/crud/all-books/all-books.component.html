@@ -2,14 +2,14 @@
   <div class="d-flex align-items-stretch">
     <div class="card w-100">
       <div class="card-body p-4">
-        <!-- Search input field for filtering libraries by name -->
+        <!-- Search input field for filtering books by name -->
         <div class="mb-3">
           <input
             [(ngModel)]="searchTerm"
             class="form-control"
             type="text"
-            placeholder="Search by library name"
-            aria-placeholder="Search by library name"
+            placeholder="Search by book name"
+            aria-placeholder="Search by book name"
           />
         </div>
 
@@ -49,24 +49,19 @@
                 <td class="border-bottom-0">
                   <img
                     [src]="IMGPATH + book?.image"
-                    alt="Contact Image"
-                    class="img-fluid"
+                    alt="Book Image"
+                    class="book-image img-fluid"
                   />
                 </td>
                 <td class="border-bottom-0">
-                  <h6 class="fw-semibold mb-1">{{ book.bookname }}</h6>
+                  <h6 class="fw-semibold mb-1">
+                    {{ book.author?.authorname }}
+                  </h6>
                 </td>
                 <td class="border-bottom-0">
                   <p class="mb-0 fw-normal">
-                    {{ book.author?.authorname }}
+                    {{ book.category?.categoryname }}
                   </p>
-                </td>
-                <td class="border-bottom-0">
-                  <div class="d-flex align-items-center gap-2">
-                    <span class="badge bg-primary rounded-3 fw-semibold">{{
-                      book.category?.categoryname
-                    }}</span>
-                  </div>
                 </td>
                 <td class="border-bottom-0">
                   <h6 class="fw-semibold mb-0 fs-4">${{ book.priceperday }}</h6>

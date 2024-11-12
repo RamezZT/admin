@@ -10,6 +10,7 @@ import { CreateLibraryType, EditLibraryType } from '../../types';
 import { QUERYKEYS } from 'src/app/queries';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as L from 'leaflet'; // Import Leaflet
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-library',
@@ -27,7 +28,8 @@ export class EditLibraryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    router: Router
+    router: Router,
+    private toastr: ToastrService
   ) {
     this.libraryForm = this.fb.group({
       name: ['', Validators.required],
@@ -75,7 +77,7 @@ export class EditLibraryComponent implements OnInit {
           +(this.route.snapshot.paramMap.get('id') ?? -1),
         ],
       });
-      alert('Library updated successfully');
+      this.toastr.success('Library edited successfully');
       setTimeout(() => {
         this.router.navigate(['/admin/library']);
       }, 200); // Delaying the navigation slightly to ensure mutation is fully complete
@@ -86,7 +88,7 @@ export class EditLibraryComponent implements OnInit {
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (!this.route.snapshot.paramMap.get('id')) {
-      alert('No ID provided');
+      this.toastr.error('No ID provided');
       return;
     }
     this.fillData();

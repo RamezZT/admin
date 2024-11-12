@@ -9,6 +9,7 @@ import { QUERYKEYS } from 'src/app/queries';
 import { Offer } from 'src/types';
 import { LibraryService } from 'src/app/admin/library/library.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-offer',
@@ -21,7 +22,11 @@ export class AddOfferComponent {
   offersService = inject(OffersService);
   librariesService = inject(LibraryService);
 
-  constructor(private fb: FormBuilder, router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    router: Router,
+    private toastr: ToastrService
+  ) {
     // Initialize form with validation
     this.router = router;
     this.offerForm = this.fb.group({
@@ -42,7 +47,7 @@ export class AddOfferComponent {
     mutationFn: (newOffer: Offer) => this.offersService.createOffer(newOffer),
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.alloffers] });
-      alert('Offer created successfully');
+      this.toastr.success('Offer created successfully');
       this.router.navigate(['/admin/offer']);
     },
   }));

@@ -11,6 +11,7 @@ import { QUERYKEYS } from 'src/app/queries';
 import { Category, LibraryCategory } from 'src/types';
 import { EditLibraryCategory } from '../../types';
 import { CategoryService } from 'src/app/admin/category/category.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-library-categories',
@@ -26,7 +27,11 @@ export class EditLibraryCategoriesComponent {
   categoryService = inject(CategoryService);
   queryClient = injectQueryClient();
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder) {
+  constructor(
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private toastr: ToastrService
+  ) {
     // Initialize form with validation
     this.bookForm = this.fb.group({
       bookname: ['', Validators.required],
@@ -39,7 +44,7 @@ export class EditLibraryCategoriesComponent {
     onSuccess: () => {
       client.refetchQueries({ queryKey: [QUERYKEYS.categories] });
       client.refetchQueries({ queryKey: [QUERYKEYS.librarycategories] });
-      alert('Category added successfully');
+      this.toastr.success('Category added successfully');
     },
   }));
 
@@ -49,7 +54,7 @@ export class EditLibraryCategoriesComponent {
     onSuccess: () => {
       client.refetchQueries({ queryKey: [QUERYKEYS.categories] });
       client.refetchQueries({ queryKey: [QUERYKEYS.librarycategories] });
-      alert('Category removed successfully');
+      this.toastr.success('Category removed successfully');
     },
   }));
 
@@ -136,7 +141,7 @@ export class EditLibraryCategoriesComponent {
 
   async onAddCategory(categoryName: string | null) {
     if (!categoryName) {
-      alert('Please select a category before adding.');
+      this.toastr.warning('Please select a category before adding.');
       return;
     }
 
@@ -145,7 +150,7 @@ export class EditLibraryCategoriesComponent {
     );
 
     if (!selectedCategory) {
-      alert('Selected category is invalid or already added.');
+      this.toastr.warning('Selected category is invalid or already added.');
       return;
     }
 
@@ -166,7 +171,7 @@ export class EditLibraryCategoriesComponent {
       );
 
     if (!libraryCategory) {
-      alert('Category not found or already removed.');
+      this.toastr.warning('Category not found or already removed.');
       return;
     }
 

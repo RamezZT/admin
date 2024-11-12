@@ -4,14 +4,14 @@
       <div class="card-body p-4">
         <h5 class="card-title fw-semibold mb-4">All Categories</h5>
 
-        <!-- Search input field for filtering libraries by name -->
+        <!-- Search input field for filtering categories by name -->
         <div class="mb-3">
           <input
             [(ngModel)]="searchTerm"
             class="form-control"
             type="text"
-            placeholder="Search by library name"
-            aria-placeholder="Search by library name"
+            placeholder="Search by category name"
+            aria-placeholder="Search by category name"
           />
         </div>
 
@@ -25,6 +25,9 @@
                 <th class="border-bottom-0">
                   <h6 class="fw-semibold mb-0">Name</h6>
                 </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Icon</h6>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -33,14 +36,14 @@
                   <h6 class="fw-semibold mb-0">{{ category.categoryid }}</h6>
                 </td>
                 <td class="border-bottom-0">
-                  <img
-                    [src]="IMGPATH + category?.iconpath"
-                    alt="Main Image"
-                    class="img-fluid"
-                  />
+                  <h6 class="fw-semibold mb-0">{{ category.categoryname }}</h6>
                 </td>
                 <td class="border-bottom-0">
-                  <h6 class="fw-semibold mb-0">{{ category.categoryname }}</h6>
+                  <img
+                    [src]="IMGPATH + category?.iconpath"
+                    alt="Category Icon"
+                    class="category-icon img-fluid"
+                  />
                 </td>
                 <td class="border-bottom-0" style="display: flex; gap: 6px">
                   <button
@@ -61,9 +64,9 @@
           </table>
         </div>
 
-        <!-- Show message when no libraries are found -->
+        <!-- Show message when no categories are found -->
         <div *ngIf="categoriesData?.length === 0" class="mt-3">
-          <p>No libraries found.</p>
+          <p>No categories found.</p>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {
@@ -59,6 +59,7 @@ import { EditOfferComponent } from './admin/offer/crud/edit-offer/edit-offer.com
 import { ReportComponent } from './admin/report/report.component';
 import { LayoutComponent } from './admin/layout/layout.component';
 import { AdminHomeComponent } from './admin/adminHome/admin-home.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -119,6 +120,12 @@ import { AdminHomeComponent } from './admin/adminHome/admin-home.component';
     RouterModule,
     AngularQueryDevtools,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000, // Duration in ms
+      positionClass: 'toast-top-center',
+      preventDuplicates: true, // Avoid duplicate toasts
+    }),
   ],
   exports: [CommonModule, FormsModule], // Export CommonModule for global use
   providers: [

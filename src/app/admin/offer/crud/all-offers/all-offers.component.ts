@@ -6,6 +6,7 @@ import {
 } from '@tanstack/angular-query-experimental';
 import { QUERYKEYS } from 'src/app/queries';
 import { LibraryService } from 'src/app/admin/library/library.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-all-offers',
@@ -13,6 +14,7 @@ import { LibraryService } from 'src/app/admin/library/library.service';
   styleUrls: ['./all-offers.component.css'],
 })
 export class AllOffersComponent {
+  constructor(private toastr: ToastrService) {}
   offersService = inject(OffersService);
   librariesService = inject(LibraryService);
   searchTerm = '';
@@ -31,7 +33,7 @@ export class AllOffersComponent {
     mutationFn: (id: number) => this.offersService.deleteOffer(id), // Update for deleting offer
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.alloffers] });
-      alert('Offer Deleted successfully');
+      this.toastr.success('Offer Deleted successfully');
     },
   }));
 

@@ -6,6 +6,7 @@ import {
 import { QUERYKEYS } from 'src/app/queries';
 import { BooksService } from '../../books.service';
 import { IMGPATH } from 'src';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-all-books',
@@ -13,6 +14,8 @@ import { IMGPATH } from 'src';
   styleUrls: ['./all-books.component.css'],
 })
 export class AllBooksComponent {
+  constructor(private toastr: ToastrService) {}
+
   booksService = inject(BooksService);
   searchTerm = '';
   categoryFilter: string | null = null;
@@ -44,7 +47,7 @@ export class AllBooksComponent {
     mutationFn: async (id: number) => await this.booksService.deleteBook(id), // Update the author by ID
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.allBooks] });
-      alert('Book Deleted successfully');
+      this.toastr.success('Book Deleted successfully');
     },
   }));
 

@@ -2,14 +2,14 @@
   <div class="d-flex align-items-stretch">
     <div class="card w-100">
       <div class="card-body p-4">
-        <!-- Search input field for filtering libraries by name -->
+        <!-- Search input field for filtering authors by name -->
         <div class="mb-3">
           <input
             [(ngModel)]="searchTerm"
             class="form-control"
             type="text"
-            placeholder="Search by library name"
-            aria-placeholder="Search by library name"
+            placeholder="Search by author name"
+            aria-placeholder="Search by author name"
           />
         </div>
 
@@ -36,10 +36,9 @@
                 </td>
                 <td class="border-bottom-0">
                   <img
-                    style="width: 250px"
                     [src]="IMGPATH + author.image"
-                    alt=""
-                    class="library-image"
+                    alt="Author Image"
+                    class="author-image img-fluid"
                   />
                 </td>
                 <td class="border-bottom-0">

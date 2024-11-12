@@ -82,7 +82,7 @@ export class LibraryService {
         throw new Error(`Library update failed: ${updateResponse.statusText}`);
       }
 
-      console.log('Library updated successfully');
+      console.log('Library edited successfully');
     } catch (error) {
       console.error('Error editing library:', error);
       throw error; // Rethrow or handle the error appropriately

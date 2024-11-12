@@ -8,6 +8,7 @@ import {
 import { QUERYKEYS } from 'src/app/queries';
 import { EditHomePageType } from '../../types';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-home-page',
@@ -24,7 +25,7 @@ export class EditHomePageComponent {
     queryKey: [QUERYKEYS.homepage],
     queryFn: () => this.homePageService.getHomePage(),
   }));
-  constructor(router: Router) {
+  constructor(router: Router, private toastr: ToastrService) {
     this.router = router;
   }
 
@@ -37,7 +38,7 @@ export class EditHomePageComponent {
       ),
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.homepage] });
-      alert('Home page information updated');
+      this.toastr.success('Home page information updated');
       this.router.navigate(['/admin/homepage']);
     },
   }));

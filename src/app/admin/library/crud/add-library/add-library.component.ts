@@ -9,6 +9,7 @@ import { CreateLibraryType } from '../../types';
 import { QUERYKEYS } from 'src/app/queries';
 import { Router } from '@angular/router';
 import * as L from 'leaflet'; // Import Leaflet
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-library',
@@ -22,7 +23,11 @@ export class AddLibraryComponent implements OnInit, OnDestroy {
   map: L.Map | undefined;
   marker: L.Marker | undefined;
 
-  constructor(private fb: FormBuilder, router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    router: Router,
+    private toastr: ToastrService
+  ) {
     this.libraryForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -43,7 +48,7 @@ export class AddLibraryComponent implements OnInit, OnDestroy {
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.libraries] });
       this.router.navigate(['/admin/library']);
-      alert('created');
+      this.toastr.success('Library Created');
     },
   }));
 
@@ -106,7 +111,8 @@ export class AddLibraryComponent implements OnInit, OnDestroy {
   }
 
   onCreateLibrary() {
-    if (!this.libraryForm.valid || !this.image) return alert('invalid Form');
+    if (!this.libraryForm.valid || !this.image)
+      this.toastr.error('invalid Form');
     this.mutation.mutate({ ...this.libraryForm.value, image: this.image });
   }
 }

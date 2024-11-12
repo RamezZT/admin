@@ -6,6 +6,7 @@ import {
 import { QUERYKEYS } from 'src/app/queries';
 import { AuthorService } from '../../author.service';
 import { IMGPATH } from 'src';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-all-authors',
   templateUrl: './all-authors.component.html',
@@ -22,11 +23,13 @@ export class AllAuthorsComponent {
     queryFn: () => this.authorsService.getAllAuthors(),
   }));
 
+  constructor(private toastr: ToastrService) {}
+
   mutation = injectMutation((client) => ({
     mutationFn: (id: number) => this.authorsService.deleteAuthor(id), // Update the author by ID
     onSuccess: () => {
       client.invalidateQueries({ queryKey: [QUERYKEYS.allauthors] });
-      alert('Author Deleted successfully');
+      this.toastr.success('Author Deleted successfully');
     },
   }));
 
