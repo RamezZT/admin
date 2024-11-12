@@ -112,7 +112,7 @@ export class AddLibraryComponent implements OnInit, OnDestroy {
 
   onCreateLibrary() {
     if (!this.libraryForm.valid || !this.image)
-      this.toastr.error('invalid Form');
+      this.toastr.error('Please Fill All Values');
     this.mutation.mutate({ ...this.libraryForm.value, image: this.image });
   }
 }

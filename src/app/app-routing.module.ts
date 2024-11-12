@@ -43,8 +43,13 @@ import { ReportComponent } from './admin/report/report.component';
 import { LayoutComponent } from './admin/layout/layout.component';
 import { UserComponent } from './admin/user/user.component';
 import { AdminHomeComponent } from './admin/adminHome/admin-home.component';
+import { EmptyComponent } from './empty/empty.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: EmptyComponent,
+  },
   {
     path: 'admin',
     component: LayoutComponent,

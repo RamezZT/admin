@@ -108,7 +108,7 @@ export class EditCategoryComponent implements OnInit {
     if (this.categoryForm.valid) {
       this.mutation.mutate(this.categoryForm.value);
     } else {
-      this.toastr.success('Invalid Form');
+      this.toastr.success('Please Fill All Values');
     }
   }
 }
