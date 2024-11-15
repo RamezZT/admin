@@ -20,4 +20,5 @@ export enum QUERYKEYS {
   report = 'report',
   totalincome = 'totalincome',
   librariesSales = 'librariesSales',
+  Admin = 'admin',
 }

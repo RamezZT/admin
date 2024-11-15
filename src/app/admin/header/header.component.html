@@ -37,7 +37,7 @@
             aria-expanded="false"
           >
             <img
-              src="../assets/images/profile/user-1.jpg"
+              [src]="IMGPATH + adminData.image"
               alt=""
               width="35"
               height="35"
@@ -50,26 +50,24 @@
           >
             <div class="message-body">
               <a
-                href="javascript:void(0)"
+                class="sidebar-link"
+                routerLink="/admin/profile/1"
+                aria-expanded="false"
                 class="d-flex align-items-center gap-2 dropdown-item"
               >
                 <i class="ti ti-user fs-6"></i>
                 <p class="mb-0 fs-3">My Profile</p>
               </a>
               <a
-                href="javascript:void(0)"
+                class="sidebar-link"
+                routerLink="/admin/editProfile/1"
+                aria-expanded="false"
                 class="d-flex align-items-center gap-2 dropdown-item"
               >
                 <i class="ti ti-mail fs-6"></i>
-                <p class="mb-0 fs-3">My Account</p>
+                <p class="mb-0 fs-3">Edit Profile</p>
               </a>
-              <a
-                href="javascript:void(0)"
-                class="d-flex align-items-center gap-2 dropdown-item"
-              >
-                <i class="ti ti-list-check fs-6"></i>
-                <p class="mb-0 fs-3">My Task</p>
-              </a>
+
               <a
                 href="./authentication-login.html"
                 class="btn btn-outline-primary mx-3 mt-2 d-block"

@@ -60,6 +60,8 @@ import { ReportComponent } from './admin/report/report.component';
 import { LayoutComponent } from './admin/layout/layout.component';
 import { AdminHomeComponent } from './admin/adminHome/admin-home.component';
 import { ToastrModule } from 'ngx-toastr';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import { GetAdminComponent } from './admin-profile/crud/get-admin/get-admin.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +111,8 @@ import { ToastrModule } from 'ngx-toastr';
     AddOfferComponent,
     EditOfferComponent,
     ReportComponent,
+    AdminProfileComponent,
+    GetAdminComponent,
   ],
   imports: [
     BrowserModule,

@@ -44,6 +44,8 @@ import { LayoutComponent } from './admin/layout/layout.component';
 import { UserComponent } from './admin/user/user.component';
 import { AdminHomeComponent } from './admin/adminHome/admin-home.component';
 import { EmptyComponent } from './empty/empty.component';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import { GetAdminComponent } from './admin-profile/crud/get-admin/get-admin.component';
 
 const routes: Routes = [
   {
@@ -55,6 +57,14 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', component: AdminHomeComponent },
+      {
+        path: 'profile/:id',
+        component: GetAdminComponent,
+      },
+      {
+        path: 'editProfile/:id',
+        component: AdminProfileComponent,
+      },
       {
         path: 'aboutus',
         component: AboutusComponent,

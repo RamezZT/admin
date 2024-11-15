@@ -119,12 +119,12 @@ export type Offer = {
 
 export type User = {
   userid: number; // Equivalent to decimal Userid
-  image?: string; // Equivalent to string? Image
-  firstname?: string; // Equivalent to string? Firstname
-  lastname?: string; // Equivalent to string? Lastname
-  email?: string; // Equivalent to string? Email
-  phonenumber?: string; // Equivalent to string? Phonenumber
-  address?: string; // Equivalent to string? Address
+  image: string; // Equivalent to string? Image
+  firstname: string; // Equivalent to string? Firstname
+  lastname: string; // Equivalent to string? Lastname
+  email: string; // Equivalent to string? Email
+  phonenumber: string; // Equivalent to string? Phonenumber
+  address: string; // Equivalent to string? Address
   bookreviews?: BookReview[]; // Equivalent to virtual ICollection<Bookreview> Bookreviews
   borrowedbooks?: BorrowedBook[]; // Equivalent to virtual ICollection<Borrowedbook> Borrowedbooks
   creditcards?: CreditCard[]; // Equivalent to virtual ICollection<Creditcard> Creditcards
