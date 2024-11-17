@@ -10,22 +10,18 @@
           </div>
           <div>
             <select
-              class="form-select"
-              id="month-selector"
-              (change)="updateChart()"
-            >
-              <option value="2024-03">March 2024</option>
-              <option value="2024-04">March 2024</option>
-              <option value="2024-05">March 2024</option>
-              <option value="2023-04">April 2023</option>
-              <option value="2023-05">May 2023</option>
-              <option value="2023-06">June 2023</option>
-            </select>
+    class="form-select"
+    id="month-selector"
+    [(ngModel)]="selectedMonth"
+    (change)="updateChart()"
+  >
+    <option *ngFor="let option of monthOptions" [value]="option.value">
+      {{ option.name }}
+    </option>
+  </select>
           </div>
         </div>
-
-        <!-- Chart.js canvas element -->
-        <canvas id="myChart"></canvas>
+        <apx-chart [dataLabels]="options.dataLabels" [tooltip]="options.tooltip" [markers]="options.markers" [chart]="options.chart" [stroke]="options.stroke" [series]="options.series" [xaxis]="options.xaxis" [title]="options.title"></apx-chart>
       </div>
     </div>
   </div>

@@ -214,6 +214,16 @@ export type Testimonial = {
   image: string;
 };
 
+export interface ReportResponse {
+  reports: Report[];
+  chartData: ChartData[];
+  
+}
+
+export interface ChartData{
+  totalSalesAmount:number;
+  monthOrWeek: string;
+}
 export interface Report {
   amount: number;
   bookname: string;

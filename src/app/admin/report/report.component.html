@@ -54,6 +54,12 @@
       }}{{ reportType === "MONTHLY" ? " - " + reportMonth : "" }}
     </h4>
 
+    <div class="text-center">
+      <button class="btn btn-secondary mt-3" (click)="downloadPDF()">
+        Download PDF
+      </button>
+    </div>
+
     <div class="table-responsive">
       <table
         class="table table-bordered table-striped table-hover align-middle"
@@ -64,6 +70,7 @@
             <th>Book Name</th>
             <th>Borrowing Date</th>
             <th>Due Date</th>
+            <th>Amount</th>
             <th>First Name</th>
             <th>Last Name</th>
           </tr>
@@ -73,6 +80,7 @@
             <td>{{ book.bookname }}</td>
             <td>{{ book.borrowingdate | date }}</td>
             <td>{{ book.duedate | date }}</td>
+            <td>{{ book.amount | currency }}</td>
             <td>{{ book.firstname }}</td>
             <td>{{ book.lastname }}</td>
           </tr>
@@ -80,10 +88,6 @@
       </table>
     </div>
 
-    <div class="text-center">
-      <button class="btn btn-secondary mt-3" (click)="downloadPDF()">
-        Download PDF
-      </button>
-    </div>
+    <apx-chart id="chart" [dataLabels]="options.dataLabels" [tooltip]="options.tooltip" [markers]="options.markers" [chart]="options.chart" [stroke]="options.stroke" [series]="options.series" [xaxis]="options.xaxis" [title]="options.title"></apx-chart>
   </div>
 </div>

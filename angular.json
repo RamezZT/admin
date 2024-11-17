@@ -107,7 +107,8 @@
               "src/assets/js/dashboard.js",
               "src/assets/js/app.min.js",
 
-              "node_modules/leaflet/dist/leaflet.js"
+              "node_modules/leaflet/dist/leaflet.js",
+              "node_modules/apexcharts/dist/apexcharts.min.js"
             ]
           }
         }

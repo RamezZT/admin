@@ -81,4 +81,18 @@ export class AdminhomeService {
       return monthlyIncome;
     }, {} as Record<string, number>);
   }
+
+  async getMonthlyChart(month:number,year:number): Promise<any> {
+    try {
+      const data = await firstValueFrom(
+        this.http.get(`${APIURL}BorrowedBook/monthly-chart?month=${month}&year=${year}`)
+      );
+      console.log(data);
+      return data;
+     
+    } catch (error) {
+      console.error('Error fetching AllBorrowed', error);
+      throw error;
+    }
+  }
 }

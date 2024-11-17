@@ -62,6 +62,8 @@ import { AdminHomeComponent } from './admin/adminHome/admin-home.component';
 import { ToastrModule } from 'ngx-toastr';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { GetAdminComponent } from './admin-profile/crud/get-admin/get-admin.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { ChartComponent } from './chart/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +115,8 @@ import { GetAdminComponent } from './admin-profile/crud/get-admin/get-admin.comp
     ReportComponent,
     AdminProfileComponent,
     GetAdminComponent,
+    ChartComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -125,13 +129,14 @@ import { GetAdminComponent } from './admin-profile/crud/get-admin/get-admin.comp
     AngularQueryDevtools,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    NgApexchartsModule,
     ToastrModule.forRoot({
       timeOut: 3000, // Duration in ms
       positionClass: 'toast-top-center',
       preventDuplicates: true, // Avoid duplicate toasts
     }),
   ],
-  exports: [CommonModule, FormsModule], // Export CommonModule for global use
+  exports: [CommonModule, FormsModule,NgApexchartsModule], // Export CommonModule for global use
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
